@@ -7,3 +7,5 @@ include/okapi
 include/pros
 include/api.h
 include/main.h
+
+.vscode
