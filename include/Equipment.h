@@ -13,12 +13,12 @@ using namespace CONSTANTS;
 
 class Equipment
 {
-protected:
+public:
     pros::Motor LeftFrontMotor;      // Basis LeftFrontMotor
     pros::Motor LeftBackMotor;      // Basis LeftBackMotor
     pros::Motor RightFrontMotor;    // Basis RightFrontMotor
     pros::Motor RightBackMotor;     // Basis RightBackMotor
-public:
+
     /*
     The default constructor
     */

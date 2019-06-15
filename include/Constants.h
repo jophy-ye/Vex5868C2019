@@ -5,6 +5,8 @@
 
 namespace CONSTANTS
 {
+    const double PI = 3.141592653589;
+
     namespace PORT
     {
         // all not set +++++++++++++++++++++++
@@ -22,9 +24,17 @@ namespace CONSTANTS
         const double WHEEL_DIAMETER         = 0;
     }
 
-    namespace PID
+    namespace AUTO_MOVEMENT
     {
+        // all not set +++++++++++++++++++++++
         // all values for PID control
+        const float KP = 3;
+
+        /*
+        if OptimizedStop is enabled,
+        the robot will start to slow down 'OPTIMIZEDSTOP_PRESERVE_DIST' cm before the goal
+        */
+        const float OPTIMIZEDSTOP_PRESERVE_DIST = 5;
     }
 
     namespace BASIS_MOTORS

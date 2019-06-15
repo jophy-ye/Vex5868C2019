@@ -89,11 +89,11 @@
             "-fdiagnostics-color",
             "--std=gnu++17",
             "-o",
-            "/tmp/tmp_mbfdn_e/opcontrol.cpp.o",
-            "src/opcontrol.cpp"
+            "bin/RobotAutoMovement.cpp.o",
+            "src/RobotAutoMovement.cpp"
         ],
         "directory": "/media/jophy/JOPHYYE/Vex/2019/Vex5868C2019",
-        "file": "src/opcontrol.cpp"
+        "file": "src/RobotAutoMovement.cpp"
     },
     {
         "arguments": [
@@ -121,10 +121,10 @@
             "-fdiagnostics-color",
             "--std=gnu++17",
             "-o",
-            "/tmp/tmpba6bq3j7/RobotAutoMovement.cpp.o",
-            "src/RobotAutoMovement.cpp"
+            "bin/opcontrol.cpp.o",
+            "src/opcontrol.cpp"
         ],
         "directory": "/media/jophy/JOPHYYE/Vex/2019/Vex5868C2019",
-        "file": "src/RobotAutoMovement.cpp"
+        "file": "src/opcontrol.cpp"
     }
 ]
