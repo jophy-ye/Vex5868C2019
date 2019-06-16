@@ -9,10 +9,14 @@ The class for autonomous movements of the robot
 
 #include "Constants.h"
 using namespace CONSTANTS;
-#include "Equipment.h"
+#include "Robot.h"
 
-class RobotAutoMovement : public Equipment
+class RobotAuto : public Robot
 {
+private:
+    // how many CM each motor has moved
+    double LeftMotorMovedCM, RightMotorMovedCM;
+
 public:
     /*
     The constructor function of the class "RobotMovement"
@@ -20,7 +24,7 @@ public:
     Input: (none)
     Output: (none)
     */
-    RobotAutoMovement(): Equipment() {};
+    RobotAuto(): Robot() {};
 
     /*
     Function for the whole robot to stop
@@ -29,6 +33,14 @@ public:
     Output: (none)
     */
     void Stop();
+
+    /*
+    Function to reset the motor's absolute position
+
+    Input: (none)
+    Output: (none)
+    */
+    void MotorReset();
 
     /*
     Function for the whole robot to start moving
@@ -78,7 +90,7 @@ public:
     Input: (none)
     Output: (none)
     */
-    ~RobotAutoMovement();
+    ~RobotAuto();
 };
 
 #endif

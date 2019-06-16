@@ -1,33 +1,63 @@
 #include "api.h"
 
-#include "RobotAutoMovement.h"
+#include "RobotAuto.h"
 #include "Constants.h"
 using namespace CONSTANTS;
 
 #include <cmath>
 
 
-void RobotAutoMovement::Stop()
+void RobotAuto::Stop()
 {
     LeftFrontMotor = 0;
     RightFrontMotor = 0;
     LeftBackMotor = 0;
     RightFrontMotor = 0;
+
+    MotorReset();
 }
 
-void RobotAutoMovement::Move(double power)
+void RobotAuto::MotorReset()
 {
-    LeftFrontMotor = power;
-    RightFrontMotor = power;
-    LeftBackMotor = power;
-    RightFrontMotor = power;
+    LeftFrontMotor.tare_position();
+    LeftBackMotor.tare_position();
+    RightFrontMotor.tare_position();
+    RightBackMotor.tare_position();
+
+    LeftMotorMovedCM = RightMotorMovedCM = 0;
 }
 
-void RobotAutoMovement::MoveDistance(double dist, double power, bool OptimizedStop)
+void RobotAuto::Move(double power)
+{
+    double LeftPower, RightPower;
+
+    // calculate the power for both sides with PID's P controlAUTO_MOVEMENT
+    LeftPower = power - (LeftMotorMovedCM - RightMotorMovedCM) * AUTO_MOVEMENT::KP;
+    RightPower = power + (LeftMotorMovedCM - RightMotorMovedCM) * AUTO_MOVEMENT::KP;
+
+    // modify the power if it exceeded
+    if (LeftPower > 127)    LeftPower = 127;
+    if (LeftPower < -127)   LeftPower = -127;
+    if (RightPower > 127)   RightPower = 127;
+    if (RightPower < -127)  RightPower = -127;
+
+    // apply the power to the motors
+    LeftFrontMotor = (int) LeftPower;
+    LeftBackMotor = (int) LeftPower;
+    RightFrontMotor = (int) RightPower;
+    RightBackMotor = (int) RightPower;
+
+    // change the value of LeftMotorMovedCM and RightMotorMovedCM
+    // Note: the encoder_unit has been set to "degree"
+    LeftMotorMovedCM = LeftFrontMotor.get_position() / 360 * (ROBOT::WHEEL_DIAMETER * PI);
+    RightMotorMovedCM = RightFrontMotor.get_position() / 360 * (ROBOT::WHEEL_DIAMETER * PI);
+}
+
+void RobotAuto::MoveDistance(double dist, double power, bool OptimizedStop)
 {
     using std::abs;
-    double LeftMotorMovedCM, RightMotorMovedCM;
-    LeftMotorMovedCM = RightMotorMovedCM = 0;
+
+    Stop();
     double LeftPower, RightPower;
     using AUTO_MOVEMENT::OPTIMIZEDSTOP_PRESERVE_DIST;
 
@@ -77,4 +107,9 @@ void RobotAutoMovement::MoveDistance(double dist, double power, bool OptimizedSt
 
     // let the whole robot stop after finishing the move
     Stop();
+}
+
+void RobotAuto::Turn(double degree, double power, bool OptimizedStop)
+{
+    
 }

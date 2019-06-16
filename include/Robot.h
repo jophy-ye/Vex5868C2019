@@ -11,7 +11,7 @@ The class of the basis move
 #include "Constants.h"
 using namespace CONSTANTS;
 
-class Equipment
+class Robot
 {
 public:
     pros::Motor LeftFrontMotor;      // Basis LeftFrontMotor
@@ -22,7 +22,7 @@ public:
     /*
     The default constructor
     */
-    Equipment():
+    Robot():
        LeftFrontMotor(PORT::LEFT_FRONT, BASIS_MOTORS::GEARSET, BASIS_MOTORS::LEFT_FRONT_REVERSED, pros::E_MOTOR_ENCODER_DEGREES),
        LeftBackMotor(PORT::LEFT_BACK, BASIS_MOTORS::GEARSET, BASIS_MOTORS::LEFT_BACK_REVERSED, pros::E_MOTOR_ENCODER_DEGREES),
        RightFrontMotor(PORT::RIGHT_FRONT, BASIS_MOTORS::GEARSET, BASIS_MOTORS::RIGHT_FRONT_REVERSED, pros::E_MOTOR_ENCODER_DEGREES),
@@ -31,7 +31,7 @@ public:
     /*
     The default destructor
     */
-    ~Equipment();
+    ~Robot();
 };
 
 #endif

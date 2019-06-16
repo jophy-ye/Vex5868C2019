@@ -25,39 +25,7 @@
             "-fdiagnostics-color",
             "--std=gnu++17",
             "-o",
-            "/tmp/tmp_mbfdn_e/initialize.cpp.o",
-            "src/initialize.cpp"
-        ],
-        "directory": "/media/jophy/JOPHYYE/Vex/2019/Vex5868C2019",
-        "file": "src/initialize.cpp"
-    },
-    {
-        "arguments": [
-            "clang++",
-            "-c",
-            "-target",
-            "armv7ar-none-none-eabi",
-            "-isystem/usr/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/include/c++/7.3.1",
-            "-isystem/usr/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/include/c++/7.3.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
-            "-isystem/usr/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/include/c++/7.3.1/backward",
-            "-isystem/usr/bin/../lib/gcc/arm-none-eabi/7.3.1/include",
-            "-isystem/usr/bin/../lib/gcc/arm-none-eabi/7.3.1/include-fixed",
-            "-isystem/usr/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/include",
-            "-iquote./include",
-            "-iquote./include/./",
-            "-mcpu=cortex-a9",
-            "-mfpu=neon-fp16",
-            "-mfloat-abi=softfp",
-            "-D_POSIX_THREADS",
-            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
-            "-Os",
-            "-funwind-tables",
-            "-ffunction-sections",
-            "-fdata-sections",
-            "-fdiagnostics-color",
-            "--std=gnu++17",
-            "-o",
-            "/tmp/tmp_mbfdn_e/autonomous.cpp.o",
+            "/tmp/tmpj33hyzge/autonomous.cpp.o",
             "src/autonomous.cpp"
         ],
         "directory": "/media/jophy/JOPHYYE/Vex/2019/Vex5868C2019",
@@ -89,11 +57,11 @@
             "-fdiagnostics-color",
             "--std=gnu++17",
             "-o",
-            "bin/RobotAutoMovement.cpp.o",
-            "src/RobotAutoMovement.cpp"
+            "/tmp/tmpj33hyzge/opcontrol.cpp.o",
+            "src/opcontrol.cpp"
         ],
         "directory": "/media/jophy/JOPHYYE/Vex/2019/Vex5868C2019",
-        "file": "src/RobotAutoMovement.cpp"
+        "file": "src/opcontrol.cpp"
     },
     {
         "arguments": [
@@ -121,10 +89,42 @@
             "-fdiagnostics-color",
             "--std=gnu++17",
             "-o",
-            "bin/opcontrol.cpp.o",
-            "src/opcontrol.cpp"
+            "/tmp/tmpj33hyzge/initialize.cpp.o",
+            "src/initialize.cpp"
         ],
         "directory": "/media/jophy/JOPHYYE/Vex/2019/Vex5868C2019",
-        "file": "src/opcontrol.cpp"
+        "file": "src/initialize.cpp"
+    },
+    {
+        "arguments": [
+            "clang++",
+            "-c",
+            "-target",
+            "armv7ar-none-none-eabi",
+            "-isystem/usr/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/include/c++/7.3.1",
+            "-isystem/usr/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/include/c++/7.3.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
+            "-isystem/usr/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/include/c++/7.3.1/backward",
+            "-isystem/usr/bin/../lib/gcc/arm-none-eabi/7.3.1/include",
+            "-isystem/usr/bin/../lib/gcc/arm-none-eabi/7.3.1/include-fixed",
+            "-isystem/usr/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/include",
+            "-iquote./include",
+            "-iquote./include/./",
+            "-mcpu=cortex-a9",
+            "-mfpu=neon-fp16",
+            "-mfloat-abi=softfp",
+            "-D_POSIX_THREADS",
+            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
+            "-Os",
+            "-funwind-tables",
+            "-ffunction-sections",
+            "-fdata-sections",
+            "-fdiagnostics-color",
+            "--std=gnu++17",
+            "-o",
+            "/tmp/tmpj33hyzge/RobotAuto.cpp.o",
+            "src/RobotAuto.cpp"
+        ],
+        "directory": "/media/jophy/JOPHYYE/Vex/2019/Vex5868C2019",
+        "file": "src/RobotAuto.cpp"
     }
 ]
