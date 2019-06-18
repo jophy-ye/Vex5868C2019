@@ -22,6 +22,12 @@ namespace CONSTANTS
         // all not set +++++++++++++++++++++++
         // all dimensions for robot
         const double WHEEL_DIAMETER         = 0;
+
+        /*
+        The turning radius of the robot.
+        TURN_RADIUS = sqrt(robot_width^2 + distance_between_wheel^2) / 2
+        */
+        const double TURN_RADIUS            = 0;
     }
 
     namespace AUTO_MOVEMENT

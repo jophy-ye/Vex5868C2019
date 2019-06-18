@@ -121,7 +121,7 @@
             "-fdiagnostics-color",
             "--std=gnu++17",
             "-o",
-            "/tmp/tmpj33hyzge/RobotAuto.cpp.o",
+            "bin/RobotAuto.cpp.o",
             "src/RobotAuto.cpp"
         ],
         "directory": "/media/jophy/JOPHYYE/Vex/2019/Vex5868C2019",

@@ -15,7 +15,7 @@
  */
 void opcontrol()
 {
-	pros::Controller master(pros::E_CONTROLLER_MASTER);
+	pros::Controller joystick(pros::E_CONTROLLER_MASTER);
 
 	while (true)
 	{
