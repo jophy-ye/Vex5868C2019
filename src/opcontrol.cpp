@@ -1,4 +1,10 @@
+#include <cstdlib>
 #include "main.h"
+
+#include "RobotAuto.h"
+#include "vector2d.h"
+#include "Config.h"
+using namespace CONSTANTS;
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -13,11 +19,51 @@
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */
+
+
+/**
+* Function to calculate joystick left analog_input gradient
+
+* Input:
+*     joystick (const pros::Controller&)	:  reference of pros joystick controller
+* Output:
+*     gradient (double)						:  the gradient of joystick left analog_input gradient
+* */
+
+
 void opcontrol()
 {
 	pros::Controller joystick(pros::E_CONTROLLER_MASTER);
+	RobotAuto robot;
+	vector2d LeftJoyVec, RightJoyVec;	// Vector to store left and right joystick number
 
+	joystick.rumble("-"); // warn the user, game is starting
+	// start the loop
 	while (true)
 	{
+		LeftJoyVec.set_x(joystick.get_analog(ANALOG_LEFT_X));
+		LeftJoyVec.set_y(joystick.get_analog(ANALOG_LEFT_Y));
+		RightJoyVec.set_x(joystick.get_analog(ANALOG_RIGHT_X));
+		RightJoyVec.set_y(joystick.get_analog(ANALOG_RIGHT_Y));
+
+		// robot movement
+		if (std::abs(LeftJoyVec.gradient()) < JOYSTICK_VAL::HORIZONTAL_SLIDE_THRESOLD)
+		{
+			// horizontal sliding movement ( abs(left_joystick_gradient)) < thresold )
+			robot.Slide(LeftJoyVec.get_x() * JOYSTICK_VAL::CONTROL_P_VAL);
+		}
+		else
+		{
+			// basis basic movement (forward/backward)
+			robot.LeftFrontMotor = LeftJoyVec.get_y() * JOYSTICK_VAL::CONTROL_P_VAL;
+			robot.LeftBackMotor = LeftJoyVec.get_y() * JOYSTICK_VAL::CONTROL_P_VAL;
+			robot.RightFrontMotor = RightJoyVec.get_y() * JOYSTICK_VAL::CONTROL_P_VAL;
+			robot.RightBackMotor = RightJoyVec.get_y() * JOYSTICK_VAL::CONTROL_P_VAL;
+		}
+
+		
+
+
+		pros::delay(20);
 	}
 }

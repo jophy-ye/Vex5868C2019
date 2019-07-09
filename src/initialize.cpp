@@ -8,7 +8,10 @@
  * to keep execution time for this mode under a few seconds.
  */
 void initialize()
-{}
+{
+    // Todo : Fill in this function parameter;
+    auto ScreenHandlerTask = pros::Task::Task();
+}
 
 /**
  * Runs while the robot is in the disabled state of Field Management System or
@@ -16,7 +19,9 @@ void initialize()
  * the robot is enabled, this task will exit.
  */
 void disabled()
-{}
+{
+
+}
 
 /**
  * Runs after initialize(), and before autonomous when connected to the Field
@@ -28,4 +33,6 @@ void disabled()
  * starts.
  */
 void competition_initialize()
-{}
+{
+
+}

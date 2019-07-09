@@ -1,7 +1,7 @@
 #include "api.h"
 
 #include "RobotAuto.h"
-#include "Constants.h"
+#include "Config.h"
 using namespace CONSTANTS;
 
 #include <cmath>
@@ -177,7 +177,7 @@ void RobotAuto::TurnDegree(double degree, double power, bool OptimizedStop)
         if (RightPower > 127)   RightPower = 127;
         if (RightPower < -127)  RightPower = -127;
 
-        // apply the power to the motors
+        // apply the power to therobot motors
         LeftFrontMotor = (int) LeftPower;
         LeftBackMotor = (int) LeftPower;
         RightFrontMotor = (int) RightPower;
@@ -192,3 +192,6 @@ void RobotAuto::TurnDegree(double degree, double power, bool OptimizedStop)
     // let the whole robot stop after finishing the move
     Stop();
 }
+
+RobotAuto::~RobotAuto()
+{};

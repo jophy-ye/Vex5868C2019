@@ -8,7 +8,7 @@ The class of the basis move
 
 #include "api.h"
 
-#include "Constants.h"
+#include "Config.h"
 using namespace CONSTANTS;
 
 class Robot
@@ -31,7 +31,7 @@ public:
     /*
     The default destructor
     */
-    ~Robot();
+    ~Robot() {};
 };
 
 #endif
