@@ -1,5 +1,5 @@
-#ifndef _CONSTANTS_H_
-#define _CONSTANTS_H_
+#ifndef _CONFIG_H_
+#define _CONFIG_H_
 
 #include "api.h"
 
@@ -53,6 +53,17 @@ namespace CONSTANTS
         const bool RIGHT_FRONT_REVERSED     = false;
         const bool LEFT_BACK_REVERSED       = false;
         const bool RIGHT_BACK_REVERSED      = false;
+    }
+
+    namespace JOYSTICK_VAL
+    {
+        // all not set +++++++++++++++++++++
+        // all info of joystick mapping
+
+        // an absolute value for horizontal sliding joystick thresold
+        const double HORIZONTAL_SLIDE_THRESOLD  = 0.4;
+        // the motor value would be joystick_input * CONTROL_P_VAL
+        const double CONTROL_P_VAL              = 0.95;
     }
 }
 
