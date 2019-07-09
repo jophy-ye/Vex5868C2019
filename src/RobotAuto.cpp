@@ -109,6 +109,16 @@ void RobotAuto::MoveDistance(double dist, double power, bool OptimizedStop)
     Stop();
 }
 
+void RobotAuto::Slide(double power)
+{
+    // Not Implemented!!!
+}
+
+void RobotAuto::SlideDistance(double dist, double power, bool OptimizedStop)
+{
+    // Not Implemented!!!
+}
+
 void RobotAuto::Turn(double power)
 {
     double LeftPower, RightPower;

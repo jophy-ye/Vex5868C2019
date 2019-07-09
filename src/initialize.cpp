@@ -10,7 +10,7 @@
 void initialize()
 {
     // Todo : Fill in this function parameter;
-    auto ScreenHandlerTask = pros::Task::Task();
+    //auto ScreenHandlerTask = pros::Task::Task();
 }
 
 /**
