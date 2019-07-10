@@ -3,8 +3,8 @@
 #include "gui.h"
 
 
-static RobotAuto robot;
-static GameStatus_t GameStatus = Initialize;
+RobotAuto robot;
+GameStatus_t GameStatus = Initialize;
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -15,8 +15,8 @@ static GameStatus_t GameStatus = Initialize;
 void initialize()
 {
     GameStatus = Initialize;
-    auto ScreenHandlerTask = pros::Task::Task(GuiHandler, (void*)NULL, 
-                TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "GUI Task");
+    pros::Task ScreenHandlerTask = pros::Task((pros::task_fn_t)GuiHandler, (void*)'\0', TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "GUI Task");
+
 }
 
 /**
