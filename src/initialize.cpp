@@ -1,5 +1,10 @@
 #include "main.h"
+#include "RobotAuto.h"
+#include "gui.h"
 
+
+static RobotAuto robot;
+static GameStatus_t GameStatus = Initialize;
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -9,8 +14,9 @@
  */
 void initialize()
 {
-    // Todo : Fill in this function parameter;
-    //auto ScreenHandlerTask = pros::Task::Task();
+    GameStatus = Initialize;
+    auto ScreenHandlerTask = pros::Task::Task(GuiHandler, (void*)NULL, 
+                TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "GUI Task");
 }
 
 /**
@@ -19,9 +25,7 @@ void initialize()
  * the robot is enabled, this task will exit.
  */
 void disabled()
-{
-
-}
+{}
 
 /**
  * Runs after initialize(), and before autonomous when connected to the Field
@@ -33,6 +37,4 @@ void disabled()
  * starts.
  */
 void competition_initialize()
-{
-
-}
+{}

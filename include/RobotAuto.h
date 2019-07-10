@@ -11,6 +11,14 @@
 using namespace CONSTANTS;
 #include "Robot.h"
 
+
+/**
+ * GameStatus_t type. Set to different value when the robot is at different state
+ */
+enum GameStatus_t
+{ Initialize, Autonomous, DriverControl };
+
+
 class RobotAuto : public Robot
 {
 private:

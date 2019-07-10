@@ -21,23 +21,17 @@ using namespace CONSTANTS;
  */
 
 
-/**
-* Function to calculate joystick left analog_input gradient
-
-* Input:
-*     joystick (const pros::Controller&)	:  reference of pros joystick controller
-* Output:
-*     gradient (double)						:  the gradient of joystick left analog_input gradient
-* */
-
-
 void opcontrol()
 {
 	pros::Controller joystick(pros::E_CONTROLLER_MASTER);
-	RobotAuto robot;
+	extern RobotAuto robot;
+	extern GameStatus_t GameStatus;
+	GameStatus = DriverControl;
 	vector2d LeftJoyVec, RightJoyVec;	// Vector to store left and right joystick number
 
+
 	joystick.rumble("-"); // warn the user, game is starting
+	
 	// start the loop
 	while (true)
 	{

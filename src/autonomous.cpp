@@ -16,5 +16,7 @@
  */
 void autonomous()
 {
-    RobotAuto robot;
+    extern RobotAuto robot;
+    extern GameStatus_t GameStatus;
+    GameStatus = Autonomous;
 }
