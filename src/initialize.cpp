@@ -16,7 +16,6 @@ void initialize()
 {
     GameStatus = Initialize;
     pros::Task ScreenHandlerTask = pros::Task((pros::task_fn_t)GuiHandler, (void*)'\0', TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "GUI Task");
-
 }
 
 /**
