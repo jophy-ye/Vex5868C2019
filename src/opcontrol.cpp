@@ -24,6 +24,7 @@ using namespace CONSTANTS;
 void opcontrol()
 {
 	pros::Controller joystick(pros::E_CONTROLLER_MASTER);
+	//pros::Controller joystick(pros::E_CONTROLLER_MASTER);
 	extern RobotAuto robot;
 	extern GameStatus_t GameStatus;
 	GameStatus = DriverControl;

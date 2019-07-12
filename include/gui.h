@@ -24,9 +24,9 @@ std::int16_t Scr_Height;    // the vex brain screen height
 // Note: This page is seprated as different tabs
 lv_obj_t* Init_Page;        // the tabview widget used to store all initialize objects
 lv_obj_t* Init_Robot_Stat_Tab;    // the tab (belongs to Init_Page) to show the robot status
-lv_obj_t* Init_Robot_Stat_Battery_Cap_Label;  //* the battery capacity (vex brain) label
-lv_obj_t* Init_Robot_Stat_Comp_Status_Label;  //* the competition status label
-lv_obj_t* Init_Robot_Stat_Cont_Battery_Cap_Label;   //* the battery capacity (controller) label
+lv_obj_t* Init_Robot_Stat_Battery_Volt_Label;   // the battery voltage (vex brain) label
+lv_obj_t* Init_Robot_Stat_Comp_Status_Label;  // the competition status label
+lv_obj_t* Init_Robot_Stat_Cont_Battery_Cap_Label;   // the battery capacity (controller) label
 lv_obj_t* Init_Robot_Stat_Ref_Btn;  // the button for user to reload the data
 
 lv_obj_t* Init_Action_Selector;     // the tab (belongs to Init_Page) to show the action selector, like autonomous.

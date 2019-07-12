@@ -6,6 +6,8 @@
 RobotAuto robot;
 GameStatus_t GameStatus = Initialize;
 
+std::uint16_t abc_test;
+
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
