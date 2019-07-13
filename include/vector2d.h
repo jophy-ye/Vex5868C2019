@@ -28,7 +28,7 @@ public:
     { x = x_input; }
 
     double set_y(double y_input)
-    { x = y_input; }
+    { y = y_input; }
 
     double get_x() const
     { return x; }

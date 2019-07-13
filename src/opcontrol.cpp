@@ -31,7 +31,11 @@ void opcontrol()
 	extern GameStatus_t GameStatus;
 	GameStatus = DriverControl;
 	vector2d LeftJoyVec, RightJoyVec;	// Vector to store left and right joystick number
-	Debug::print("[Stat] Driver Control Starting");
+	{
+        char printbuffer[60];
+        snprintf(printbuffer, 60, "%s[Stat]%s DriverControl Starting", D_Bg_Cyan, D_Reset);
+        Debug::print(printbuffer);
+    }
 
 	joystick.rumble("-"); // warn the user, game is starting
 	

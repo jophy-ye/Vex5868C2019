@@ -9,3 +9,4 @@ include/api.h
 include/main.h
 
 .vscode
+.DS_Store
