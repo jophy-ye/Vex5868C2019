@@ -4,6 +4,34 @@
 #include "RobotAuto.h"
 #include "typedefs.h"
 
+extern RobotAuto robot;
+extern GameStatus_t GameStatus;
+extern AutonPos_t AutonPos;
+
+// Autonomous Action for starting position: Blue_Front
+void AutonBlueFront()
+{
+
+}
+
+// Autonomous Action for starting position: Red_Front
+void AutonRedFront()
+{
+    
+}
+
+// Autonomous Action for starting position: Blue_Back
+void AutonBlueBack()
+{
+
+}
+
+// Autonomous Action for starting position: Red_Back
+void AutonRedBack()
+{
+
+}
+
 /**
  * Runs the user autonomous code. This function will be started in its own task
  * with the default priority and stack size whenever the robot is enabled via
@@ -17,7 +45,13 @@
  */
 void autonomous()
 {
-    extern RobotAuto robot;
-    extern GameStatus_t GameStatus;
     GameStatus = Autonomous;
+
+    switch(AutonPos)
+    {
+        case BlueFront: AutonBlueFront(); break;
+        case RedFront: AutonRedFront(); break;
+        case BlueBack: AutonBlueBack(); break;
+        case RedBack: AutonRedBack(); break;
+    }
 }
