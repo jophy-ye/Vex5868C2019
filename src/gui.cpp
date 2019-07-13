@@ -3,11 +3,47 @@
 #include "gui.h"
 #include "main.h"
 #include "RobotAuto.h"
+#include "typedefs.h"
 
+extern AutonPos_t AutonPos;
 extern GameStatus_t GameStatus;
 
 // the previous status handled
 GameStatus_t PreviousStatus;
+
+
+/**
+ * all components used for lvgl interface
+ * 
+ * Note1: all marked as static which means it can only
+ * be accessed in this file
+ * 
+ * TODO: styling (unurgent)
+ */
+lv_obj_t* Brain_Scr;        // the vex brain screen
+std::int16_t Scr_Width;     // the vex brain screen width
+std::int16_t Scr_Height;    // the vex brain screen height
+
+
+// Note: This page is seprated as different tabs
+lv_obj_t* Init_Page;        // the tabview widget used to store all initialize objects
+lv_obj_t* Init_Robot_Stat_Tab;    // the tab (belongs to Init_Page) to show the robot status
+lv_obj_t* Init_Robot_Stat_Battery_Volt_Label;   // the battery voltage (vex brain) label
+lv_obj_t* Init_Robot_Stat_Comp_Status_Label;  // the competition status label
+lv_obj_t* Init_Robot_Stat_Cont_Battery_Cap_Label;   // the battery capacity (controller) label
+lv_obj_t* Init_Robot_Stat_Ref_Btn;  // the button for user to reload the data
+
+lv_obj_t* Init_Action_Selector;     // the tab (belongs to Init_Page) to show the action selector, like autonomous.
+lv_obj_t* GuideText_Label;  // the label to guide the user for selecting the button (can be reused)
+lv_obj_t* BlueFront_btn;    // the button for starting position: Blue_Front, free_num = 0
+lv_obj_t* RedFront_btn; // the button for starting position: Red_Front, free_num = 1
+lv_obj_t* BlueBack_btn; // the button for starting position: Blue_Back, free_num = 2
+lv_obj_t* RedBack_btn;  // the button for starting position: Red_Back, free_num = 3
+
+
+lv_obj_t* Auton_Page;       //* the page used to store all autonomous objects
+lv_obj_t* DCon_Page;        //* the page used to store all DriverControl objects
+
 
 void GuiHandler()
 {
@@ -74,8 +110,76 @@ void InitSetup()
     Init_Robot_Stat_Ref_Btn = lv_btn_create(Init_Robot_Stat_Tab, NULL);
     lv_obj_align(Init_Robot_Stat_Ref_Btn, NULL, LV_ALIGN_IN_BOTTOM_RIGHT, 0, 0);
     lv_btn_set_action(Init_Robot_Stat_Ref_Btn, LV_BTN_ACTION_CLICK, LoadStatus_Action);
-
     LoadStatus_Action(Init_Robot_Stat_Ref_Btn); // call function to load data manually
+
+    // set the Action selector
+    GuideText_Label = lv_label_create(Init_Action_Selector, NULL);
+    lv_label_set_text(GuideText_Label, "Select Autonomous Position:");
+    lv_obj_align(GuideText_Label, Init_Action_Selector, LV_ALIGN_IN_TOP_MID, 0, 0);
+    BlueFront_btn = lv_btn_create(Init_Action_Selector, NULL);
+    RedFront_btn = lv_btn_create(Init_Action_Selector, NULL);
+    BlueBack_btn = lv_btn_create(Init_Action_Selector, NULL);
+    RedBack_btn = lv_btn_create(Init_Action_Selector, NULL);
+    lv_obj_set_size(BlueFront_btn, lv_obj_get_width(Init_Action_Selector) / 2, 70);
+    lv_obj_set_size(RedFront_btn, lv_obj_get_width(Init_Action_Selector) / 2, 70);
+    lv_obj_set_size(BlueBack_btn, lv_obj_get_width(Init_Action_Selector) / 2, 70);
+    lv_obj_set_size(RedBack_btn, lv_obj_get_width(Init_Action_Selector) / 2, 70);
+    //**** the twenty below is kind of random, not set!
+    lv_obj_align(BlueFront_btn, Init_Action_Selector, LV_ALIGN_IN_TOP_LEFT, 0, 20);
+    lv_obj_align(RedFront_btn, Init_Action_Selector, LV_ALIGN_IN_TOP_LEFT, 0, 20);
+    lv_obj_align(BlueBack_btn, BlueFront_btn, LV_ALIGN_OUT_BOTTOM_MID, 0, 0);
+    lv_obj_align(RedBack_btn, RedFront_btn, LV_ALIGN_OUT_BOTTOM_MID, 0, 0);
+    lv_obj_set_free_num(BlueFront_btn, 0);
+    lv_obj_set_free_num(RedFront_btn, 1);
+    lv_obj_set_free_num(BlueBack_btn, 2);
+    lv_obj_set_free_num(RedBack_btn, 3);
+    lv_btn_set_toggle(BlueFront_btn, true);
+    lv_btn_set_toggle(RedFront_btn, true);
+    lv_btn_set_toggle(BlueBack_btn, true);
+    lv_btn_set_toggle(RedBack_btn, true);
+    lv_btn_set_state(BlueFront_btn, LV_BTN_STATE_TGL_PR);
+    lv_btn_set_state(RedFront_btn, LV_BTN_STATE_TGL_REL);
+    lv_btn_set_state(BlueBack_btn, LV_BTN_STATE_TGL_REL);
+    lv_btn_set_state(RedBack_btn, LV_BTN_STATE_TGL_REL);
+    lv_btn_set_action(BlueFront_btn, LV_BTN_ACTION_PR, ChangePosBtnPressed_Action);
+    lv_btn_set_action(RedFront_btn, LV_BTN_ACTION_PR, ChangePosBtnPressed_Action);
+    lv_btn_set_action(BlueBack_btn, LV_BTN_ACTION_PR, ChangePosBtnPressed_Action);
+    lv_btn_set_action(RedBack_btn, LV_BTN_ACTION_PR, ChangePosBtnPressed_Action);
+    GuideText_Label = lv_label_create(BlueFront_btn, NULL);
+    lv_label_set_text(GuideText_Label, "Blue Front");
+    lv_obj_align(GuideText_Label, NULL, LV_ALIGN_CENTER, 0, 0);
+    GuideText_Label = lv_label_create(RedFront_btn, NULL);
+    lv_label_set_text(GuideText_Label, "Red Front");
+    lv_obj_align(GuideText_Label, NULL, LV_ALIGN_CENTER, 0, 0);
+    GuideText_Label = lv_label_create(BlueBack_btn, NULL);
+    lv_label_set_text(GuideText_Label, "Blue Back");
+    lv_obj_align(GuideText_Label, NULL, LV_ALIGN_CENTER, 0, 0);
+    GuideText_Label = lv_label_create(RedBack_btn, NULL);
+    lv_label_set_text(GuideText_Label, "Red Back");
+    lv_obj_align(GuideText_Label, NULL, LV_ALIGN_CENTER, 0, 0);
+}
+
+static lv_res_t ChangePosBtnPressed_Action(lv_obj_t* PressedButton)
+{
+    lv_btn_set_state(BlueFront_btn, LV_BTN_STATE_TGL_REL);
+    lv_btn_set_state(RedFront_btn, LV_BTN_STATE_TGL_REL);
+    lv_btn_set_state(BlueBack_btn, LV_BTN_STATE_TGL_REL);
+    lv_btn_set_state(RedBack_btn, LV_BTN_STATE_TGL_REL);
+
+    std::uint32_t BtnFreeNum = lv_obj_get_free_num(PressedButton);
+    switch(BtnFreeNum)
+    {
+        /**
+         * The BlueFront button is 0, RedFront button is 1,
+         * BlueBack button is 2, RedBack is 3
+         */
+        case 0: lv_btn_set_state(BlueFront_btn, LV_BTN_STATE_TGL_PR); AutonPos = BlueFront; break;
+        case 1: lv_btn_set_state(RedFront_btn, LV_BTN_STATE_TGL_PR); AutonPos = RedFront; break;
+        case 2: lv_btn_set_state(BlueBack_btn, LV_BTN_STATE_TGL_PR); AutonPos = BlueBack; break;
+        case 3: lv_btn_set_state(BlueBack_btn, LV_BTN_STATE_TGL_PR); AutonPos = RedBack; break;
+    }
+
+    return LV_RES_OK;
 }
 
 static lv_res_t LoadStatus_Action(lv_obj_t* RefreshButton)
@@ -108,10 +212,12 @@ static lv_res_t LoadStatus_Action(lv_obj_t* RefreshButton)
 
 void AutonSetup()
 {
-    
+    Auton_Page = lv_page_create(Brain_Scr, NULL);
+    lv_obj_align(Auton_Page, Brain_Scr, LV_ALIGN_CENTER, 0, 0);
 }
 
 void DConSetup()
 {
-    
+    DCon_Page = lv_page_create(Brain_Scr, NULL);
+    lv_obj_align(DCon_Page, Brain_Scr, LV_ALIGN_CENTER, 0, 0);
 }

@@ -4,6 +4,7 @@
 #include "RobotAuto.h"
 #include "vector2d.h"
 #include "Config.h"
+#include "typedefs.h"
 using namespace CONSTANTS;
 
 /**

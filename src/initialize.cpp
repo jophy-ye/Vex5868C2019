@@ -1,12 +1,12 @@
 #include "main.h"
 #include "RobotAuto.h"
 #include "gui.h"
+#include "typedefs.h"
 
 
 RobotAuto robot;
 GameStatus_t GameStatus = Initialize;
-
-std::uint16_t abc_test;
+AutonPos_t AutonPos = BlueFront;
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.

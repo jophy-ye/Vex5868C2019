@@ -2,6 +2,7 @@
 
 #include "Config.h"
 #include "RobotAuto.h"
+#include "typedefs.h"
 
 /**
  * Runs the user autonomous code. This function will be started in its own task
