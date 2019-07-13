@@ -3,6 +3,7 @@
 #include "Config.h"
 #include "RobotAuto.h"
 #include "typedefs.h"
+#include "Debug.h"
 
 extern RobotAuto robot;
 extern GameStatus_t GameStatus;
@@ -46,6 +47,7 @@ void AutonRedBack()
 void autonomous()
 {
     GameStatus = Autonomous;
+    Debug::print("[Stat] Autonomous Starting");
 
     switch(AutonPos)
     {

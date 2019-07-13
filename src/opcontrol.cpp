@@ -5,6 +5,7 @@
 #include "vector2d.h"
 #include "Config.h"
 #include "typedefs.h"
+#include "Debug.h"
 using namespace CONSTANTS;
 
 /**
@@ -30,7 +31,7 @@ void opcontrol()
 	extern GameStatus_t GameStatus;
 	GameStatus = DriverControl;
 	vector2d LeftJoyVec, RightJoyVec;	// Vector to store left and right joystick number
-
+	Debug::print("[Stat] Driver Control Starting");
 
 	joystick.rumble("-"); // warn the user, game is starting
 	
