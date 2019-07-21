@@ -32,15 +32,38 @@ extern const char* D_Reversed;
 // some custom decorators
 extern const char* D_Safe;
 extern const char* D_Warn;
+extern const char* D_Stat;
 
 
 
 namespace Debug
 {
-    /** A function for the user to debug using the terminal
+    /** 
+     * A function for the user to debug using the terminal
      * To view output, type "pros terminal"
      */
     int print(const char* input);
+
+    /**
+     * Log info with the logging type Warn
+     * 
+     * Usually used to warn the user
+     */
+    int WarnLog(const char* input);
+
+    /**
+     * Log info with the logging type Stat
+     * 
+     * Usually for showing the current status
+     */
+    int StatLog(const char* input);
+    
+    /**
+     * Log info with logging type Safe
+     * 
+     * Usually for showing that something is correct
+     */
+    int SafeLog(const char* input);
 }
 
 

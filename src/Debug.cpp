@@ -30,10 +30,25 @@ const char* D_Reversed = "\u001b[7m";
 
 const char* D_Safe = "\u001b[32m\u001b[7m";
 const char* D_Warn = "\u001b[31m\u001b[1m";
+const char* D_Stat = "\u001b[34m";
 
 
 int Debug::print(const char* input)
 {
-    int LogStatus = std::printf("%s %s", input, D_Reset);
-    return LogStatus;
+    return std::printf("%s %s", input, D_Reset);
+}
+
+int Debug::WarnLog(const char* input)
+{
+    return std::printf("%s[Warn]%s %s %s", D_Warn, D_Reset, input, D_Reset);
+}
+
+int Debug::StatLog(const char* input)
+{
+    return std::printf("%s[Stat]%s %s %s", D_Stat, D_Reset, input, D_Reset);
+}
+
+int Debug::SafeLog(const char* input)
+{
+    return std::printf("%s[Safe]%s %s %s", D_Safe, D_Reset, input, D_Reset);
 }
