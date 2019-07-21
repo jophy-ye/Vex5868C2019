@@ -45,7 +45,7 @@ lv_obj_t* Auton_Page;       //* the page used to store all autonomous objects
 lv_obj_t* DCon_Page;        //* the page used to store all DriverControl objects
 
 
-void GuiHandler()
+void GuiHandler(void* param)
 {
     /** 
      * this is the starting of this function which will be called by initialize().
