@@ -24,10 +24,10 @@ public:
     vector2d(double* x_y_input)
     { x = x_y_input[0]; y = x_y_input[1]; }
 
-    double set_x(double x_input)
+    void set_x(double x_input)
     { x = x_input; }
 
-    double set_y(double y_input)
+    void set_y(double y_input)
     { y = y_input; }
 
     double get_x() const

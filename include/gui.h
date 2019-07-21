@@ -11,7 +11,7 @@
 /**
  * Used to generate a task to run code dealing with GUI
  */
-void GuiHandler();
+void GuiHandler(void * param);
 
 /**
  * Initialize all components for Initialize stage
