@@ -13,9 +13,9 @@ enum GameStatus_t
 
 /**
  * The starting position of autonomous. They are:
- * BlueFront, RedFront, BlueBack, RedBack
+ * BlueFront, RedFront, BlueBack, RedBack, Skills
  */
 enum AutonPos_t
-{ BlueFront, RedFront, BlueBack, RedBack };
+{ BlueFront, RedFront, BlueBack, RedBack, Skills };
 
 #endif
