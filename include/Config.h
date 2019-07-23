@@ -11,10 +11,16 @@ namespace CONSTANTS
     {
         // all not set +++++++++++++++++++++++
         // all port numbers
-        const unsigned int LEFT_FRONT       = 0;
-        const unsigned int RIGHT_FRONT      = 0;
-        const unsigned int LEFT_BACK        = 0;
-        const unsigned int RIGHT_BACK       = 0;
+        const unsigned int LEFT_FRONT       = 0;    // motor
+        const unsigned int RIGHT_FRONT      = 0;    // motor
+        const unsigned int LEFT_BACK        = 0;    // motor
+        const unsigned int RIGHT_BACK       = 0;    // motor
+
+        const unsigned int INTAKE_1         = 1;    // motor
+        const unsigned int INTAKE_2         = 2;    // motor
+
+        const unsigned int LIFTER           = 0;    // motor
+        const unsigned int LIFTER_SWITCH    = 0;    // digital_in
     }
 
     namespace ROBOT
@@ -64,6 +70,23 @@ namespace CONSTANTS
         const double HORIZONTAL_SLIDE_THRESOLD  = 0.4;
         // the motor value would be joystick_input * CONTROL_P_VAL
         const double CONTROL_P_VAL              = 0.95;
+    }
+
+    namespace LIFTER
+    {
+        // all not set +++++++++++++++++++++
+        // all info of lifter (except port)
+        const bool LIFTER_REVERSED              = false;
+
+        const int LIFTER_VELOCITY               = 100;
+    }
+
+    namespace INTAKE
+    {
+        // all not set +++++++++++++++++++++
+        // all info of the two intakes (except port)
+        const bool INTAKE_1_REVERSED            = true;
+        const bool INTAKE_2_REVERSED            = false;
     }
 }
 

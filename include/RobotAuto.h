@@ -10,6 +10,7 @@
 #include "Config.h"
 using namespace CONSTANTS;
 #include "Robot.h"
+#include "Debug.h"
 
 
 class RobotAuto : public Robot
@@ -17,6 +18,7 @@ class RobotAuto : public Robot
 private:
     // how many CM each motor has moved
     double LeftMotorMovedCM, RightMotorMovedCM;
+    short LifterPos;
 
 public:
     /*
@@ -25,7 +27,8 @@ public:
     * Input: (none)
     * Output: (none)
     * */
-    RobotAuto(): Robot() {};
+    RobotAuto(): Robot(), LeftMotorMovedCM(0), RightMotorMovedCM(0), 
+            LifterPos(0) { LifterMotor.tare_position(); };
     /*
     * Function for the whole robot to stop
 
@@ -133,6 +136,33 @@ public:
     *     (negative dist will not affect the direction)
     * */
     void TurnDegree(double degree, double power, bool OptimizedStop = false);
+
+    /**
+     * Set the intake mode
+     * 
+     * Input:
+     *     mode_input (short)   :  The desired mode. 0 means stop, 1 means suck, 2 means releasing cubes
+     * Output:
+     *     (bool)               :  True if success, false if it isn't
+     */
+    bool SetIntakeMode(short mode_input);
+
+    /**
+     * Set the lifter mode
+     * 
+     * Input:
+     *     pos_input (short)    :  The desired pos. 0 means low, 1 means high
+     */
+    bool SetLifterPos(short pos_input);
+
+    /**
+     * Update the lifter's position. If the LifterPos is set to something, but the position
+     * not achieved yet, it will move the motor
+     * 
+     * Input: (none)
+     * Output: (none)
+     */
+    void UpdateLifter();
 
     /*
     * The default destructor of the class "RobotMovement"

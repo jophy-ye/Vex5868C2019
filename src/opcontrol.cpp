@@ -47,6 +47,7 @@ void opcontrol()
 		RightJoyVec.set_x(joystick.get_analog(ANALOG_RIGHT_X));
 		RightJoyVec.set_y(joystick.get_analog(ANALOG_RIGHT_Y));
 
+
 		// robot movement
 		if (std::abs(LeftJoyVec.gradient()) < JOYSTICK_VAL::HORIZONTAL_SLIDE_THRESOLD)
 		{
@@ -63,7 +64,21 @@ void opcontrol()
 		}
 
 		
+		// intake motors
+		if (joystick.get_digital(DIGITAL_L1))
+			robot.SetIntakeMode(1);
+		else if (joystick.get_digital(DIGITAL_L2))
+			robot.SetIntakeMode(2);
+		else
+			robot.SetIntakeMode(0);
+		
 
+		// lifter motors
+		if (joystick.get_digital(DIGITAL_R1))
+			robot.SetLifterPos(1);
+		else if (joystick.get_digital(DIGITAL_R2))
+			robot.SetLifterPos(0);
+		robot.UpdateLifter();
 
 		pros::delay(20);
 	}

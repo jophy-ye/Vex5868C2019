@@ -203,5 +203,48 @@ void RobotAuto::TurnDegree(double degree, double power, bool OptimizedStop)
     Stop();
 }
 
+bool RobotAuto::SetIntakeMode(short mode_input)
+{
+    switch(mode_input)
+    {
+        case 0: Intake1Motor = 0; Intake2Motor = 0; return true;
+        case 1: Intake1Motor = -127; Intake2Motor = -127; return true;
+        case 2: Intake1Motor = 127; Intake2Motor = 127; return true;
+        default: Debug::WarnLog("Did not specify a correct mode for SetIntakeMode"); return false;
+    }
+}
+
+bool RobotAuto::SetLifterPos(short pos_input)
+{
+    switch(pos_input)
+    {
+        case 0: LifterPos = 0; return true;
+        case 1: LifterPos = 1; return true;
+        default: Debug::WarnLog("Did not specify a correct pos for SetLifterPos"); return false;
+    }
+}
+
+void RobotAuto::UpdateLifter()
+{
+    if (LifterPos)
+    {
+        // move the lifter to "high" position
+        if (LifterSwitch.get_value())
+        {
+            // switch not pressed, continue moveing
+            LifterMotor = LIFTER::LIFTER_VELOCITY;
+        }
+        else
+        {
+            LifterMotor = 0;
+        }
+    }
+    else
+    {
+        // move the lifter to "low" position
+        LifterMotor.move_absolute(0, -LIFTER::LIFTER_VELOCITY);
+    }
+}
+
 RobotAuto::~RobotAuto()
 {};
