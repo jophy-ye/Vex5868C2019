@@ -43,8 +43,8 @@ lv_obj_t* Skills_btn;   // the button for starting position: Skills, free_num = 
 lv_obj_t* Init_Action_Main_Label;
 
 
-lv_obj_t* Auton_Page;       //* the page used to store all autonomous objects
-lv_obj_t* DCon_Page;        //* the page used to store all DriverControl objects
+// lv_obj_t* Auton_Page;       //* the page used to store all autonomous objects
+// lv_obj_t* DCon_Page;        //* the page used to store all DriverControl objects
 
 
 void GuiHandler(void* param)
@@ -68,8 +68,8 @@ void GuiHandler(void* param)
         {
             // the status has changed, show the specific container
             lv_obj_set_hidden(Init_Page, true);
-            lv_obj_set_hidden(Auton_Page, true);
-            lv_obj_set_hidden(DCon_Page, true);
+            // lv_obj_set_hidden(Auton_Page, true);
+            // lv_obj_set_hidden(DCon_Page, true);
             if (GameStatus == Initialize)
             {
                 lv_obj_set_hidden(Init_Page, false);
@@ -77,12 +77,12 @@ void GuiHandler(void* param)
             }
             else if (GameStatus == Autonomous)
             {
-                lv_obj_set_hidden(Auton_Page, false);
+                // lv_obj_set_hidden(Auton_Page, false);
                 PreviousStatus = Autonomous;
             }
             else if (GameStatus == DriverControl)
             {
-                lv_obj_set_hidden(DCon_Page, false);
+                // lv_obj_set_hidden(DCon_Page, false);
                 PreviousStatus = DriverControl;
             }
         }
@@ -221,12 +221,16 @@ static lv_res_t LoadStatus_Action(lv_obj_t* RefreshButton)
 
 void AutonSetup()
 {
-    //Auton_Page = lv_page_create(Brain_Scr, NULL);
-    //lv_obj_align(Auton_Page, Brain_Scr, LV_ALIGN_CENTER, 0, 0);
+    /*
+    Auton_Page = lv_page_create(Brain_Scr, NULL);
+    lv_obj_align(Auton_Page, Brain_Scr, LV_ALIGN_CENTER, 0, 0);
+    */
 }
 
 void DConSetup()
 {
-    //DCon_Page = lv_page_create(Brain_Scr, NULL);
-    //lv_obj_align(DCon_Page, Brain_Scr, LV_ALIGN_CENTER, 0, 0);
+    /*
+    DCon_Page = lv_page_create(Brain_Scr, NULL);
+    lv_obj_align(DCon_Page, Brain_Scr, LV_ALIGN_CENTER, 0, 0);
+    */
 }
