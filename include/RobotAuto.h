@@ -82,12 +82,13 @@ public:
     *     power (double)      :  The power for the motor (-127 ~ 127)
     * Output: (none)
 
-    * #Note: if you want to the robot to turn with other condition other than distance,
+    * #Note1: if you want to the robot to turn with other condition other than distance,
     *         apply this function regularly with that condition.
     *     Ex:     RobotAuto::Stop();
     *             while ([CONDITION])
     *             {RobotAuto::Slide(127);}
     *             RobotAuto::Stop();
+    * #Note2: a minus degree will result in left slide, and vise versa.
     * */
     void Slide(double power);
 
