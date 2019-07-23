@@ -35,20 +35,20 @@ const char* D_Stat = "\u001b[34m";
 
 int Debug::print(const char* input)
 {
-    return std::printf("%s %s", input, D_Reset);
+    return std::printf("%s %s\n", input, D_Reset);
 }
 
 int Debug::WarnLog(const char* input)
 {
-    return std::printf("%s[Warn]%s %s %s", D_Warn, D_Reset, input, D_Reset);
+    return std::printf("%s[Warn]%s %s %s\n", D_Warn, D_Reset, input, D_Reset);
 }
 
 int Debug::StatLog(const char* input)
 {
-    return std::printf("%s[Stat]%s %s %s", D_Stat, D_Reset, input, D_Reset);
+    return std::printf("%s[Stat]%s %s %s\n", D_Stat, D_Reset, input, D_Reset);
 }
 
 int Debug::SafeLog(const char* input)
 {
-    return std::printf("%s[Safe]%s %s %s", D_Safe, D_Reset, input, D_Reset);
+    return std::printf("%s[Safe]%s %s %s\n", D_Safe, D_Reset, input, D_Reset);
 }

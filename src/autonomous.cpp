@@ -47,11 +47,7 @@ void AutonRedBack()
 void autonomous()
 {
     GameStatus = Autonomous;
-    {
-        char printbuffer[42];
-        snprintf(printbuffer, 42, "%s[Stat]%s Autonomous Starting", D_Bg_Cyan, D_Reset);
-        Debug::print(printbuffer);
-    }
+    Debug::StatLog("$ Autonomous Starting");
 
     switch(AutonPos)
     {

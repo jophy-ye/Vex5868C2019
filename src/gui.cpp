@@ -104,7 +104,7 @@ void InitSetup()
     Init_Robot_Stat_Comp_Status_Label = lv_label_create(Init_Robot_Stat_Tab, NULL);
     Init_Robot_Stat_Cont_Battery_Cap_Label = lv_label_create(Init_Robot_Stat_Tab, NULL);
     lv_obj_align(Init_Robot_Stat_Battery_Volt_Label, Init_Robot_Stat_Tab, 
-                LV_ALIGN_CENTER, 0, 100);
+                LV_ALIGN_IN_RIGHT_MID, -290, 130);
     lv_obj_align(Init_Robot_Stat_Comp_Status_Label, Init_Robot_Stat_Battery_Volt_Label,
                 LV_ALIGN_OUT_BOTTOM_RIGHT, 0, 0);
     lv_obj_align(Init_Robot_Stat_Cont_Battery_Cap_Label, Init_Robot_Stat_Comp_Status_Label,
@@ -119,22 +119,21 @@ void InitSetup()
     lv_obj_set_height(Init_Robot_Stat_Ref_Btn, 60);
 
     // set the Action selector
-    GuideText_Label = lv_label_create(Init_Action_Selector, NULL);
-    Init_Action_Main_Label = GuideText_Label;
-    lv_label_set_text(GuideText_Label, "Select Autonomous Position: ");
-    lv_obj_align(GuideText_Label, Init_Action_Selector, LV_ALIGN_IN_TOP_MID, 0, -200);
+    Init_Action_Main_Label = lv_label_create(Init_Action_Selector, NULL);
+    lv_label_set_text(Init_Action_Main_Label, "Select Autonomous Position: ");
+    lv_obj_align(Init_Action_Main_Label, Init_Action_Selector, LV_ALIGN_IN_TOP_MID, 0, -230);
     BlueFront_btn = lv_btn_create(Init_Action_Selector, NULL);
     RedFront_btn = lv_btn_create(Init_Action_Selector, NULL);
     BlueBack_btn = lv_btn_create(Init_Action_Selector, NULL);
     RedBack_btn = lv_btn_create(Init_Action_Selector, NULL);
     Skills_btn = lv_btn_create(Init_Action_Selector, NULL);
-    lv_obj_set_size(BlueFront_btn, lv_obj_get_width(Init_Action_Selector) / 2, 45);
-    lv_obj_set_size(RedFront_btn, lv_obj_get_width(Init_Action_Selector) / 2, 45);
-    lv_obj_set_size(BlueBack_btn, lv_obj_get_width(Init_Action_Selector) / 2, 45);
-    lv_obj_set_size(RedBack_btn, lv_obj_get_width(Init_Action_Selector) / 2, 45);
-    lv_obj_set_size(Skills_btn, lv_obj_get_width(Init_Action_Selector) / 2, 45);
+    lv_obj_set_size(BlueFront_btn, lv_obj_get_width(Init_Action_Selector) / 2 - 10, 45);
+    lv_obj_set_size(RedFront_btn, lv_obj_get_width(Init_Action_Selector) / 2 - 10, 45);
+    lv_obj_set_size(BlueBack_btn, lv_obj_get_width(Init_Action_Selector) / 2 - 10, 45);
+    lv_obj_set_size(RedBack_btn, lv_obj_get_width(Init_Action_Selector) / 2 - 10, 45);
+    lv_obj_set_size(Skills_btn, lv_obj_get_width(Init_Action_Selector) / 2 - 10, 45);
     //**** the twenty below is kind of random, not set!
-    lv_obj_align(BlueFront_btn, Init_Action_Selector, LV_ALIGN_IN_TOP_LEFT, 0, 100);
+    lv_obj_align(BlueFront_btn, Init_Action_Selector, LV_ALIGN_IN_TOP_LEFT, 10, 100);
     lv_obj_align(RedFront_btn, BlueFront_btn, LV_ALIGN_OUT_RIGHT_MID, 0, 0);
     lv_obj_align(BlueBack_btn, BlueFront_btn, LV_ALIGN_OUT_BOTTOM_MID, 0, 0);
     lv_obj_align(RedBack_btn, RedFront_btn, LV_ALIGN_OUT_BOTTOM_MID, 0, 0);

@@ -16,6 +16,7 @@ AutonPos_t AutonPos = BlueFront;
  */
 void initialize()
 {
+    Debug::print("Program starting...");
     GameStatus = Initialize;
     pros::Task ScreenHandlerTask = pros::Task(GuiHandler, NULL, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "GUI Task");
 }
