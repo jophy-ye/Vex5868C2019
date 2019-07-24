@@ -13,6 +13,16 @@ using namespace CONSTANTS;
 #include "Debug.h"
 
 
+/**
+ * A public function for the task that holds the intake-lifter in position
+ * It is in the task called: IntakeLifterTask (declared in initialize.cpp)
+ * 
+ * param is the parameter passed when the task is created.
+ * In this case, param store a pointer to the instance of RobotAuto (robot)
+ */
+void IntakeLifterTaskControllerFunc(void* param);
+
+
 class RobotAuto : public Robot
 {
 private:
@@ -28,7 +38,9 @@ public:
     * Output: (none)
     * */
     RobotAuto(): Robot(), LeftMotorMovedCM(0), RightMotorMovedCM(0), 
-            LifterPos(0) { LifterMotor.tare_position(); };
+            LifterPos(0), IntakeLifterTargetPos(0)
+    { LifterMotor.tare_position(); IntakeLifterMotor.tare_position();};
+
     /*
     * Function for the whole robot to stop
 
@@ -147,6 +159,19 @@ public:
      *     (bool)               :  True if success, false if it isn't
      */
     bool SetIntakeMode(short mode_input);
+
+    /**
+     * It stores intake-lifter's pos. This variable is public, so you can modify it to
+     * set the intake-lifter's pos.
+     * 
+     * Note1: After setting Pos, call UpdateIntakeLifterPos() or handle it in a task to
+     *      really change the lifter's pos
+     * Note2: Setting this will only change IntakeLifter in this class, but not in reality,
+     *      remember to call UpdateIntakeLifterPos()
+     */
+    int IntakeLifterTargetPos;
+
+    void UpdateIntakeLifterPos();
 
     /**
      * Set the lifter mode

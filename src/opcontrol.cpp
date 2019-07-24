@@ -68,14 +68,24 @@ void opcontrol()
 		else
 			robot.SetIntakeMode(0);
 		
+		// intake-lifter controls
+		if (joystick.get_digital(DIGITAL_R1))
+		{
+			robot.IntakeLifterTargetPos += 20;
+		}
+		else if (joystick.get_digital(DIGITAL_R2))
+		{
+			robot.IntakeLifterTargetPos -= 20;
+		}
+		
 
 		// lifter motors
 		if (joystick.get_digital(DIGITAL_X))
-			robot.SetLifterPos(2);
+			robot.SetLifterMode(2);
 		else if (joystick.get_digital(DIGITAL_B))
-			robot.SetLifterPos(1);
+			robot.SetLifterMode(1);
 		else
-			robot.SetLifterPos(0);
+			robot.SetLifterMode(0);
 
 		pros::delay(20);
 	}

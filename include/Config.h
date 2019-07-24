@@ -80,9 +80,9 @@ namespace CONSTANTS
 
         const int LIFTER_VELOCITY               = 54;
 
-        // THresold value of LifterMotor's encoder (high position)
+        // Thresold value of LifterMotor's encoder (high position)
         const float LIFTER_HIGH_DEGREE          = 2500;
-        // THresold value of LifterMotor's encoder (low position)
+        // Thresold value of LifterMotor's encoder (low position)
         const float LIFTER_LOW_DEGREE           = 0;
     }
 
@@ -94,7 +94,11 @@ namespace CONSTANTS
         const bool INTAKE_2_REVERSED            = false;
         const bool INTAKE_LIFTER_REVERSED       = true;
 
-        const float INTAKE_LIFTER_KP            = 1;
+        const float INTAKE_LIFTER_KP            = 0.6;
+        // Thresold value of IntakeLifterMotor's encoder (high position)
+        const float INTAKE_LIFTER_HIGH_DEGREE   = 2300;
+        // Thresold value of IntakeLifterMotor's encoder (low position)
+        const float INTAKE_LIFTER_LOW_DEGREE    = 0;
     }
 }
 

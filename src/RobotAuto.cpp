@@ -7,6 +7,21 @@ using namespace CONSTANTS;
 #include <cmath>
 
 
+/**
+ * param is the parameter passed when the task is created.
+ * In this case, param store a pointer to the instance of RobotAuto (robot)
+ *  */
+void IntakeLifterTaskControllerFunc(void* param)
+{
+    while (true)
+    {
+        if (param != NULL)
+            ((RobotAuto*)param)->UpdateIntakeLifterPos();
+        pros::delay(100);
+    }
+}
+
+
 void RobotAuto::Stop()
 {
     LeftFrontMotor = 0;
@@ -309,6 +324,15 @@ bool RobotAuto::SetLifterMode(short mode_input)
     }
     
     return true;
+}
+
+void RobotAuto::UpdateIntakeLifterPos()
+{
+    double velocity = (IntakeLifterTargetPos - IntakeLifterMotor.get_position()) * INTAKE::INTAKE_LIFTER_KP;
+    if ((IntakeLifterMotor.get_position() < INTAKE::INTAKE_LIFTER_HIGH_DEGREE && velocity >= 0) || (IntakeLifterMotor.get_position() > INTAKE::INTAKE_LIFTER_LOW_DEGREE && velocity < 0))
+        IntakeLifterMotor = (int)velocity;
+    else
+        IntakeLifterMotor = 0;
 }
 
 RobotAuto::~RobotAuto()
