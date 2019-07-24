@@ -16,14 +16,6 @@ public:
     vector2d()
     { x = y = 0; }
 
-    /**
-     * an array of int number for input
-     * it will only look at the first two number
-     * sample input: vector2d({1.0, 0.2}) 
-     * */
-    vector2d(double* x_y_input)
-    { x = x_y_input[0]; y = x_y_input[1]; }
-
     void set_x(double x_input)
     { x = x_input; }
 

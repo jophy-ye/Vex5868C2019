@@ -21,6 +21,7 @@ public:
 
     pros::Motor Intake1Motor;       // the first intake motor
     pros::Motor Intake2Motor;       // the second intake motor
+    pros::Motor IntakeLifterMotor;  // the motor for lifting motor
 
     pros::Motor LifterMotor;        // the lifter motor
     pros::ADIDigitalIn LifterSwitch;// the limit switch used by the lifter
@@ -35,6 +36,7 @@ public:
        RightBackMotor(PORT::RIGHT_BACK, BASIS_MOTORS::GEARSET, BASIS_MOTORS::RIGHT_BACK_REVERSED, pros::E_MOTOR_ENCODER_DEGREES),
        Intake1Motor(PORT::INTAKE_1, INTAKE::INTAKE_1_REVERSED),
        Intake2Motor(PORT::INTAKE_2, INTAKE::INTAKE_2_REVERSED),
+       IntakeLifterMotor(PORT::INTAKE_LIFTER, INTAKE::INTAKE_LIFTER_REVERSED),
        LifterMotor(PORT::LIFTER, LIFTER::LIFTER_REVERSED),
        LifterSwitch(PORT::LIFTER_SWITCH) {};
 

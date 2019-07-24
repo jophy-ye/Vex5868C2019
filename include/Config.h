@@ -11,15 +11,16 @@ namespace CONSTANTS
     {
         // all not set +++++++++++++++++++++++
         // all port numbers
-        const unsigned int LEFT_FRONT       = 0;    // motor
-        const unsigned int RIGHT_FRONT      = 0;    // motor
-        const unsigned int LEFT_BACK        = 0;    // motor
-        const unsigned int RIGHT_BACK       = 0;    // motor
+        const unsigned int LEFT_FRONT       = 5;    // motor
+        const unsigned int RIGHT_FRONT      = 10;   // motor
+        const unsigned int LEFT_BACK        = 4;    // motor
+        const unsigned int RIGHT_BACK       = 9;    // motor
 
-        const unsigned int INTAKE_1         = 1;    // motor
-        const unsigned int INTAKE_2         = 2;    // motor
+        const unsigned int INTAKE_1         = 18;    // motor
+        const unsigned int INTAKE_2         = 11;    // motor
+        const unsigned int INTAKE_LIFTER    = 20;   // motor
 
-        const unsigned int LIFTER           = 0;    // motor
+        const unsigned int LIFTER           = 20;    // motor
         const unsigned int LIFTER_SWITCH    = 0;    // digital_in
     }
 
@@ -27,7 +28,7 @@ namespace CONSTANTS
     {
         // all not set +++++++++++++++++++++++
         // all dimensions for robot
-        const double WHEEL_DIAMETER         = 0;
+        const double WHEEL_DIAMETER         = 10.16;
 
         /*
         The turning radius of the robot.
@@ -87,6 +88,7 @@ namespace CONSTANTS
         // all info of the two intakes (except port)
         const bool INTAKE_1_REVERSED            = true;
         const bool INTAKE_2_REVERSED            = false;
+        const bool INTAKE_LIFTER_REVERSED       = false;
     }
 }
 
