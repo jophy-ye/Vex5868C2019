@@ -20,8 +20,7 @@ namespace CONSTANTS
         const unsigned int INTAKE_2         = 11;    // motor
         const unsigned int INTAKE_LIFTER    = 20;   // motor
 
-        const unsigned int LIFTER           = 20;    // motor
-        const unsigned int LIFTER_SWITCH    = 0;    // digital_in
+        const unsigned int LIFTER           = 16;    // motor
     }
 
     namespace ROBOT
@@ -56,10 +55,10 @@ namespace CONSTANTS
         // all info about basis motors (except ports)
         const pros::motor_gearset_e_t GEARSET = pros::E_MOTOR_GEARSET_18;
 
-        const bool LEFT_FRONT_REVERSED      = false;
+        const bool LEFT_FRONT_REVERSED      = true;
         const bool RIGHT_FRONT_REVERSED     = false;
         const bool LEFT_BACK_REVERSED       = false;
-        const bool RIGHT_BACK_REVERSED      = false;
+        const bool RIGHT_BACK_REVERSED      = true;
     }
 
     namespace JOYSTICK_VAL
@@ -77,9 +76,14 @@ namespace CONSTANTS
     {
         // all not set +++++++++++++++++++++
         // all info of lifter (except port)
-        const bool LIFTER_REVERSED              = false;
+        const bool LIFTER_REVERSED              = true;
 
-        const int LIFTER_VELOCITY               = 100;
+        const int LIFTER_VELOCITY               = 54;
+
+        // THresold value of LifterMotor's encoder (high position)
+        const float LIFTER_HIGH_DEGREE          = 2500;
+        // THresold value of LifterMotor's encoder (low position)
+        const float LIFTER_LOW_DEGREE           = 0;
     }
 
     namespace INTAKE
@@ -88,7 +92,9 @@ namespace CONSTANTS
         // all info of the two intakes (except port)
         const bool INTAKE_1_REVERSED            = true;
         const bool INTAKE_2_REVERSED            = false;
-        const bool INTAKE_LIFTER_REVERSED       = false;
+        const bool INTAKE_LIFTER_REVERSED       = true;
+
+        const float INTAKE_LIFTER_KP            = 1;
     }
 }
 

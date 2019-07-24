@@ -152,19 +152,10 @@ public:
      * Set the lifter mode
      * 
      * Input:
-     *     pos_input (short)    :  The desired pos. 0 means low, 1 means high
+     *     pos_input (short)    :  The desired pos. 1 means lower position, 2 means higher position, 0 means stop
      */
-    bool SetLifterPos(short pos_input);
-
-    /**
-     * Update the lifter's position. If the LifterPos is set to something, but the position
-     * not achieved yet, it will move the motor
-     * 
-     * Input: (none)
-     * Output: (none)
-     */
-    void UpdateLifter();
-
+    bool SetLifterMode(short mode_input);
+    
     /*
     * The default destructor of the class "RobotMovement"
 

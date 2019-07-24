@@ -70,11 +70,12 @@ void opcontrol()
 		
 
 		// lifter motors
-		if (joystick.get_digital(DIGITAL_R1))
+		if (joystick.get_digital(DIGITAL_X))
+			robot.SetLifterPos(2);
+		else if (joystick.get_digital(DIGITAL_B))
 			robot.SetLifterPos(1);
-		else if (joystick.get_digital(DIGITAL_R2))
+		else
 			robot.SetLifterPos(0);
-		robot.UpdateLifter();
 
 		pros::delay(20);
 	}

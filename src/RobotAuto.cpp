@@ -285,36 +285,30 @@ bool RobotAuto::SetIntakeMode(short mode_input)
     }
 }
 
-bool RobotAuto::SetLifterPos(short pos_input)
+bool RobotAuto::SetLifterMode(short mode_input)
 {
-    switch(pos_input)
+    if (mode_input < 0  || mode_input > 2)
     {
-        case 0: LifterPos = 0; return true;
-        case 1: LifterPos = 1; return true;
-        default: Debug::WarnLog("Did not specify a correct pos for SetLifterPos"); return false;
+        Debug::WarnLog("Did not specify a correct mode for SetLifterPos");
+        return false;
     }
-}
 
-void RobotAuto::UpdateLifter()
-{
-    if (LifterPos)
+    if (mode_input == 2)
     {
-        // move the lifter to "high" position
-        if (LifterSwitch.get_value())
-        {
-            // switch not pressed, continue moveing
+        if (LifterMotor.get_position() < LIFTER::LIFTER_HIGH_DEGREE)
             LifterMotor = LIFTER::LIFTER_VELOCITY;
-        }
-        else
-        {
-            LifterMotor = 0;
-        }
+    }
+    else if (mode_input == 1)
+    {
+        if (LifterMotor.get_position() > LIFTER::LIFTER_LOW_DEGREE)
+            LifterMotor = - LIFTER::LIFTER_VELOCITY;
     }
     else
     {
-        // move the lifter to "low" position
-        LifterMotor.move_absolute(0, -LIFTER::LIFTER_VELOCITY);
+        LifterMotor = 0;
     }
+    
+    return true;
 }
 
 RobotAuto::~RobotAuto()

@@ -24,7 +24,6 @@ public:
     pros::Motor IntakeLifterMotor;  // the motor for lifting motor
 
     pros::Motor LifterMotor;        // the lifter motor
-    pros::ADIDigitalIn LifterSwitch;// the limit switch used by the lifter
 
     /*
     The default constructor
@@ -37,8 +36,7 @@ public:
        Intake1Motor(PORT::INTAKE_1, INTAKE::INTAKE_1_REVERSED),
        Intake2Motor(PORT::INTAKE_2, INTAKE::INTAKE_2_REVERSED),
        IntakeLifterMotor(PORT::INTAKE_LIFTER, INTAKE::INTAKE_LIFTER_REVERSED),
-       LifterMotor(PORT::LIFTER, LIFTER::LIFTER_REVERSED),
-       LifterSwitch(PORT::LIFTER_SWITCH) {};
+       LifterMotor(PORT::LIFTER, LIFTER::LIFTER_REVERSED) {};
 
     /*
     The default destructor
