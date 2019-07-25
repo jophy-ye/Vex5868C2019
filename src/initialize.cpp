@@ -19,7 +19,7 @@ void initialize()
     Debug::print("Program starting...");
     GameStatus = Initialize;
 
-    pros::Task IntakeLifterTask = pros::Task(IntakeLifterTaskControllerFunc, (void*)(&robot), 10, TASK_STACK_DEPTH_DEFAULT, "IntakeLifter Task");
+    pros::Task LiftersTask = pros::Task(LiftersTaskControllerFunc, (void*)(&robot), 10, TASK_STACK_DEPTH_DEFAULT, "IntakeLifter Task");
     pros::Task ScreenHandlerTask = pros::Task(GuiHandler, NULL, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "GUI Task");
 }
 

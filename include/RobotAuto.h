@@ -20,7 +20,7 @@ using namespace CONSTANTS;
  * param is the parameter passed when the task is created.
  * In this case, param store a pointer to the instance of RobotAuto (robot)
  */
-void IntakeLifterTaskControllerFunc(void* param);
+void LiftersTaskControllerFunc(void* param);
 
 
 class RobotAuto : public Robot
@@ -38,7 +38,7 @@ public:
     * Output: (none)
     * */
     RobotAuto(): Robot(), LeftMotorMovedCM(0), RightMotorMovedCM(0), 
-            LifterPos(0), IntakeLifterTargetPos(0)
+            LifterPos(0), IntakeLifterTargetPos(0), LifterTargetPos(0)
     { LifterMotor.tare_position(); IntakeLifterMotor.tare_position();};
 
     /*
@@ -161,7 +161,7 @@ public:
     bool SetIntakeMode(short mode_input);
 
     /**
-     * It stores intake-lifter's pos. This variable is public, so you can modify it to
+     * It stores intake-lifter's target pos. This variable is public, so you can modify it to
      * set the intake-lifter's pos.
      * 
      * Note1: After setting Pos, call UpdateIntakeLifterPos() or handle it in a task to
@@ -174,12 +174,17 @@ public:
     void UpdateIntakeLifterPos();
 
     /**
-     * Set the lifter mode
+     * It stores lifter's target pos. This variable is public, so you can modify it to
+     * set the lifter's pos.
      * 
-     * Input:
-     *     pos_input (short)    :  The desired pos. 1 means lower position, 2 means higher position, 0 means stop
+     * Note1: After setting Pos, call UpdateLifterPos() or handle it in a task to
+     *      really change the lifter's pos
+     * Note2: Setting this will only change Lifter in this class, but not in reality,
+     *      remember to call UpdateLifterPos()
      */
-    bool SetLifterMode(short mode_input);
+    int LifterTargetPos;
+
+    void UpdateLifterPos();
     
     /*
     * The default destructor of the class "RobotMovement"

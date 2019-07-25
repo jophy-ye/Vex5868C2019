@@ -55,10 +55,10 @@ namespace CONSTANTS
         // all info about basis motors (except ports)
         const pros::motor_gearset_e_t GEARSET = pros::E_MOTOR_GEARSET_18;
 
-        const bool LEFT_FRONT_REVERSED      = true;
-        const bool RIGHT_FRONT_REVERSED     = false;
-        const bool LEFT_BACK_REVERSED       = false;
-        const bool RIGHT_BACK_REVERSED      = true;
+        const bool LEFT_FRONT_REVERSED              = true;
+        const bool RIGHT_FRONT_REVERSED             = false;
+        const bool LEFT_BACK_REVERSED               = false;
+        const bool RIGHT_BACK_REVERSED              = true;
     }
 
     namespace JOYSTICK_VAL
@@ -67,38 +67,45 @@ namespace CONSTANTS
         // all info of joystick mapping
 
         // an absolute value for horizontal sliding joystick thresold
-        const double HORIZONTAL_SLIDE_THRESOLD  = 0.4;
+        const double HORIZONTAL_SLIDE_THRESOLD      = 0.4;
         // the motor value would be joystick_input * CONTROL_P_VAL
-        const double CONTROL_P_VAL              = 0.95;
+        const double CONTROL_P_VAL                  = 0.95;
     }
 
     namespace LIFTER
     {
         // all not set +++++++++++++++++++++
         // all info of lifter (except port)
-        const bool LIFTER_REVERSED              = true;
+        const bool LIFTER_REVERSED                  = true;
 
-        const int LIFTER_VELOCITY               = 54;
+        const int LIFTER_POWER_MAX                  = 54;
+        const float LIFTER_KP                       = 0.5;
 
         // Thresold value of LifterMotor's encoder (high position)
-        const float LIFTER_HIGH_DEGREE          = 2500;
+        const float LIFTER_HIGH_DEGREE              = 2500;
         // Thresold value of LifterMotor's encoder (low position)
-        const float LIFTER_LOW_DEGREE           = 0;
+        const float LIFTER_LOW_DEGREE               = 0;
+
+        const float LIFTER_SLOWDOWN_RESERVE_DEGREE  = 700;
+
+
+        // the minimum degree required to avoid colliding with intake-lifter when intake-lifter is moving
+        const float AVOID_INTAKELIFTER_MIN_DEGREE   = 800;
     }
 
     namespace INTAKE
     {
         // all not set +++++++++++++++++++++
         // all info of the two intakes (except port)
-        const bool INTAKE_1_REVERSED            = true;
-        const bool INTAKE_2_REVERSED            = false;
-        const bool INTAKE_LIFTER_REVERSED       = true;
+        const bool INTAKE_1_REVERSED                = true;
+        const bool INTAKE_2_REVERSED                = false;
+        const bool INTAKE_LIFTER_REVERSED           = true;
 
-        const float INTAKE_LIFTER_KP            = 0.6;
+        const float INTAKE_LIFTER_KP                = 0.6;
         // Thresold value of IntakeLifterMotor's encoder (high position)
-        const float INTAKE_LIFTER_HIGH_DEGREE   = 2300;
+        const float INTAKE_LIFTER_HIGH_DEGREE       = 2400;
         // Thresold value of IntakeLifterMotor's encoder (low position)
-        const float INTAKE_LIFTER_LOW_DEGREE    = 0;
+        const float INTAKE_LIFTER_LOW_DEGREE        = 0;
     }
 }
 

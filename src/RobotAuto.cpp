@@ -11,12 +11,21 @@ using namespace CONSTANTS;
  * param is the parameter passed when the task is created.
  * In this case, param store a pointer to the instance of RobotAuto (robot)
  *  */
-void IntakeLifterTaskControllerFunc(void* param)
+void LiftersTaskControllerFunc(void* param)
 {
     while (true)
     {
         if (param != NULL)
+        {
             ((RobotAuto*)param)->UpdateIntakeLifterPos();
+            ((RobotAuto*)param)->UpdateLifterPos();
+        }
+        else
+        {
+            // param is not pointing to anything, raise an error
+            Debug::WarnLog("In \"LiftersTask\", (RobotAuto*) is not pointing to anything.");
+        }
+        
         pros::delay(100);
     }
 }
@@ -300,39 +309,38 @@ bool RobotAuto::SetIntakeMode(short mode_input)
     }
 }
 
-bool RobotAuto::SetLifterMode(short mode_input)
-{
-    if (mode_input < 0  || mode_input > 2)
-    {
-        Debug::WarnLog("Did not specify a correct mode for SetLifterPos");
-        return false;
-    }
-
-    if (mode_input == 2)
-    {
-        if (LifterMotor.get_position() < LIFTER::LIFTER_HIGH_DEGREE)
-            LifterMotor = LIFTER::LIFTER_VELOCITY;
-    }
-    else if (mode_input == 1)
-    {
-        if (LifterMotor.get_position() > LIFTER::LIFTER_LOW_DEGREE)
-            LifterMotor = - LIFTER::LIFTER_VELOCITY;
-    }
-    else
-    {
-        LifterMotor = 0;
-    }
-    
-    return true;
-}
-
 void RobotAuto::UpdateIntakeLifterPos()
 {
-    double velocity = (IntakeLifterTargetPos - IntakeLifterMotor.get_position()) * INTAKE::INTAKE_LIFTER_KP;
-    if ((IntakeLifterMotor.get_position() < INTAKE::INTAKE_LIFTER_HIGH_DEGREE && velocity >= 0) || (IntakeLifterMotor.get_position() > INTAKE::INTAKE_LIFTER_LOW_DEGREE && velocity < 0))
-        IntakeLifterMotor = (int)velocity;
+    if (IntakeLifterTargetPos < INTAKE::INTAKE_LIFTER_LOW_DEGREE)
+        IntakeLifterTargetPos = INTAKE::INTAKE_LIFTER_LOW_DEGREE;
+    if (IntakeLifterTargetPos > INTAKE::INTAKE_LIFTER_HIGH_DEGREE)
+        IntakeLifterTargetPos = INTAKE::INTAKE_LIFTER_HIGH_DEGREE;
+
+    double power = (IntakeLifterTargetPos - IntakeLifterMotor.get_position()) * INTAKE::INTAKE_LIFTER_KP;
+    IntakeLifterMotor = (int)power;
+}
+
+void RobotAuto::UpdateLifterPos()
+{
+    if (LifterMotor.get_position() < LIFTER::AVOID_INTAKELIFTER_MIN_DEGREE && 
+        IntakeLifterTargetPos > 20)
+    {
+        LifterTargetPos = LIFTER::AVOID_INTAKELIFTER_MIN_DEGREE;
+        LifterMotor.move_absolute(LIFTER::AVOID_INTAKELIFTER_MIN_DEGREE, 70);
+    }
     else
-        IntakeLifterMotor = 0;
+    {
+        double power;
+        power = (LifterTargetPos - LifterMotor.get_position()) * LIFTER::LIFTER_KP;
+
+        // modify the velocity if it is too big
+        if (power > LIFTER::LIFTER_POWER_MAX)
+            power = LIFTER::LIFTER_POWER_MAX;
+        else if (power < - LIFTER::LIFTER_POWER_MAX)
+            power = - LIFTER::LIFTER_POWER_MAX;
+
+        LifterMotor = (int)power;   
+    }
 }
 
 RobotAuto::~RobotAuto()

@@ -45,7 +45,8 @@ void opcontrol()
 
 
 		// robot movement
-		if (std::abs(LeftJoyVec.gradient()) < JOYSTICK_VAL::HORIZONTAL_SLIDE_THRESOLD)
+		if (std::abs(LeftJoyVec.gradient()) < JOYSTICK_VAL::HORIZONTAL_SLIDE_THRESOLD && 
+				RightJoyVec.magnitude() < 10)
 		{
 			// horizontal sliding movement ( abs(left_joystick_gradient)) < thresold )
 			robot.Slide(LeftJoyVec.get_x() * JOYSTICK_VAL::CONTROL_P_VAL);
@@ -70,22 +71,18 @@ void opcontrol()
 		
 		// intake-lifter controls
 		if (joystick.get_digital(DIGITAL_R1))
-		{
 			robot.IntakeLifterTargetPos += 20;
-		}
 		else if (joystick.get_digital(DIGITAL_R2))
-		{
 			robot.IntakeLifterTargetPos -= 20;
-		}
 		
 
 		// lifter motors
 		if (joystick.get_digital(DIGITAL_X))
-			robot.SetLifterMode(2);
+			robot.LifterTargetPos += 15;
 		else if (joystick.get_digital(DIGITAL_B))
-			robot.SetLifterMode(1);
-		else
-			robot.SetLifterMode(0);
+			robot.LifterTargetPos -= 15;
+		else if (joystick.get_digital(DIGITAL_A))
+			robot.LifterTargetPos += 8;
 
 		pros::delay(20);
 	}
