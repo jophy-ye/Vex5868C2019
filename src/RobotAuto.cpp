@@ -36,7 +36,7 @@ void RobotAuto::Stop()
     LeftFrontMotor = 0;
     RightFrontMotor = 0;
     LeftBackMotor = 0;
-    RightFrontMotor = 0;
+    RightBackMotor = 0;
 
     MotorReset();
 }
@@ -139,8 +139,8 @@ void RobotAuto::Slide(double power)
     double LeftPower, RightPower;
 
     // calculate the power for both sides with PID's P controlAUTO_MOVEMENT
-    LeftPower = - power;
-    RightPower = power;
+    LeftPower = power;
+    RightPower = - power;
 
     // modify the power if it exceeded
     if (LeftPower > 127)    LeftPower = 127;
@@ -338,6 +338,9 @@ void RobotAuto::UpdateLifterPos()
             power = LIFTER::LIFTER_POWER_MAX;
         else if (power < - LIFTER::LIFTER_POWER_MAX)
             power = - LIFTER::LIFTER_POWER_MAX;
+        
+        if (std::abs(power) < 10)
+            power = 0;
 
         LifterMotor = (int)power;   
     }

@@ -9,6 +9,11 @@ extern RobotAuto robot;
 extern GameStatus_t GameStatus;
 extern AutonPos_t AutonPos;
 
+void TestFunction()
+{
+    robot.MoveDistance(180, 127, true);
+}
+
 // Autonomous Action for starting position: Blue_Front
 void AutonBlueFront()
 {
@@ -48,6 +53,8 @@ void autonomous()
 {
     GameStatus = Autonomous;
     Debug::StatLog("$ Autonomous Starting");
+
+    TestFunction();
 
     switch(AutonPos)
     {

@@ -46,7 +46,7 @@ namespace CONSTANTS
         if OptimizedStop is enabled,
         the robot will start to slow down 'OPTIMIZEDSTOP_PRESERVE_DIST' cm before the goal
         */
-        const float OPTIMIZEDSTOP_PRESERVE_DIST = 5;
+        const float OPTIMIZEDSTOP_PRESERVE_DIST = 15;
     }
 
     namespace BASIS_MOTORS
@@ -82,7 +82,7 @@ namespace CONSTANTS
         const float LIFTER_KP                       = 0.5;
 
         // Thresold value of LifterMotor's encoder (high position)
-        const float LIFTER_HIGH_DEGREE              = 2500;
+        const float LIFTER_HIGH_DEGREE              = 2400;
         // Thresold value of LifterMotor's encoder (low position)
         const float LIFTER_LOW_DEGREE               = 0;
 

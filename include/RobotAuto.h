@@ -85,7 +85,7 @@ public:
     * #Note1: dist is supposed to be positive, please set the rotate direction through power
     *     (negative dist will not affect the direction)
     * */
-    void MoveDistance(double dist, double power = 127, bool OptimizedStop = false);
+    void MoveDistance(double dist, double power = 127, bool OptimizedStop = true);
 
     /*
     * Function for the whole robot to slide from left to right and vice versa
@@ -117,7 +117,7 @@ public:
     * #Note2: dist is supposed to be positive, please set the rotate direction through power
     *     (negative dist will not affect the direction)
     * */
-    void SlideDistance(double dist, double power, bool OptimizedStop = false);
+    void SlideDistance(double dist, double power, bool OptimizedStop = true);
 
     /*
     * Function for the whole robot to swing turn
@@ -148,7 +148,7 @@ public:
     * #Note2: degree is supposed to be positive, please set the rotate direction through power
     *     (negative dist will not affect the direction)
     * */
-    void TurnDegree(double degree, double power, bool OptimizedStop = false);
+    void TurnDegree(double degree, double power, bool OptimizedStop = true);
 
     /**
      * Set the intake mode
