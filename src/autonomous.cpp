@@ -11,7 +11,7 @@ extern AutonPos_t AutonPos;
 
 void TestFunction()
 {
-    robot.MoveDistance(180, 127, true);
+    // robot.MoveDistance(180, 127, true);
 }
 
 // Autonomous Action for starting position: Blue_Front
@@ -23,7 +23,12 @@ void AutonBlueFront()
 // Autonomous Action for starting position: Red_Front
 void AutonRedFront()
 {
-    
+    /**
+     * Go forward and suck all cubes (there are four)
+     */
+    robot.SetIntakeMode(1);
+    robot.MoveDistance(70, 100, true);
+    pros::delay(200);
 }
 
 // Autonomous Action for starting position: Blue_Back
