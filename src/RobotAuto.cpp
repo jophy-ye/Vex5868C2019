@@ -176,8 +176,8 @@ void RobotAuto::SlideDistance(double dist, double power, bool OptimizedStop)
     while (abs(LeftMotorMovedCM) < abs(dist) || abs(RightMotorMovedCM) < abs(dist))
     {
         // calculate the power for both sides with PID's P control
-        LeftPower = - power;
-        RightPower = power;
+        LeftPower = power;
+        RightPower = - power;
 
         // configure the output power if OptimizedStop is enabled
         if (OptimizedStop)
@@ -207,8 +207,8 @@ void RobotAuto::SlideDistance(double dist, double power, bool OptimizedStop)
         
         // change the value of LeftMotorMovedCM and RightMotorMovedCM
         // Note: the encoder_unit has been set to "degree"
-        LeftMotorMovedCM = (LeftBackMotor.get_position() - LeftFrontMotor.get_position()) / 720 * (ROBOT::WHEEL_DIAMETER * PI);
-        RightMotorMovedCM = (RightFrontMotor.get_position() - RightBackMotor.get_position()) / 720 * (ROBOT::WHEEL_DIAMETER * PI);
+        LeftMotorMovedCM = (LeftFrontMotor.get_position() - LeftBackMotor.get_position()) / 720 * (ROBOT::WHEEL_DIAMETER * PI);
+        RightMotorMovedCM = (RightBackMotor.get_position() - RightFrontMotor.get_position()) / 720 * (ROBOT::WHEEL_DIAMETER * PI);
     }
 
     // let the whole robot stop after finishing the move

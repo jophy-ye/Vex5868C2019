@@ -29,7 +29,7 @@ std::int16_t Scr_Height;    // the vex brain screen height
 lv_obj_t* Init_Page;        // the tabview widget used to store all initialize objects
 lv_obj_t* Init_Robot_Stat_Tab;    // the tab (belongs to Init_Page) to show the robot status
 lv_obj_t* Init_Robot_Stat_Battery_Volt_Label;   // the battery voltage (vex brain) label
-lv_obj_t* Init_Robot_Stat_Comp_Status_Label;  // the competition status label
+lv_obj_t* Init_Robot_Stat_Comp_Connected_Label;  // the competition status label
 lv_obj_t* Init_Robot_Stat_Cont_Battery_Cap_Label;   // the battery capacity (controller) label
 lv_obj_t* Init_Robot_Stat_Ref_Btn;  // the button for user to reload the data
 
@@ -101,13 +101,13 @@ void InitSetup()
 
     // set up some robot status data on screen
     Init_Robot_Stat_Battery_Volt_Label = lv_label_create(Init_Robot_Stat_Tab, NULL);
-    Init_Robot_Stat_Comp_Status_Label = lv_label_create(Init_Robot_Stat_Tab, NULL);
+    Init_Robot_Stat_Comp_Connected_Label = lv_label_create(Init_Robot_Stat_Tab, NULL);
     Init_Robot_Stat_Cont_Battery_Cap_Label = lv_label_create(Init_Robot_Stat_Tab, NULL);
     lv_obj_align(Init_Robot_Stat_Battery_Volt_Label, Init_Robot_Stat_Tab, 
                 LV_ALIGN_IN_RIGHT_MID, -290, 130);
-    lv_obj_align(Init_Robot_Stat_Comp_Status_Label, Init_Robot_Stat_Battery_Volt_Label,
+    lv_obj_align(Init_Robot_Stat_Comp_Connected_Label, Init_Robot_Stat_Battery_Volt_Label,
                 LV_ALIGN_OUT_BOTTOM_RIGHT, 0, 0);
-    lv_obj_align(Init_Robot_Stat_Cont_Battery_Cap_Label, Init_Robot_Stat_Comp_Status_Label,
+    lv_obj_align(Init_Robot_Stat_Cont_Battery_Cap_Label, Init_Robot_Stat_Comp_Connected_Label,
                 LV_ALIGN_OUT_BOTTOM_RIGHT, 0, 0);
     Init_Robot_Stat_Ref_Btn = lv_btn_create(Init_Robot_Stat_Tab, NULL);
     lv_obj_align(Init_Robot_Stat_Ref_Btn, NULL, LV_ALIGN_IN_BOTTOM_RIGHT, 0, 70);
@@ -202,14 +202,13 @@ static lv_res_t LoadStatus_Action(lv_obj_t* RefreshButton)
     snprintf(buffer, 32, "Robot Battery Voltage: %f", BatteryVoltage);
     lv_label_set_text(Init_Robot_Stat_Battery_Volt_Label, buffer);
     buffer[0] = '\0';
-    switch(CompStatus)
-    {
-        case COMPETITION_DISABLED: strcpy(buffer, "Competition Status: Disabled"); break;
-        case COMPETITION_CONNECTED: strcpy(buffer, "Competition Status: Connected"); break;
-        case COMPETITION_AUTONOMOUS: strcpy(buffer, "Competition Status: Auton"); break;
-        default: strcpy(buffer, "Competition Status: Disabled");
-    }
-    lv_label_set_text(Init_Robot_Stat_Comp_Status_Label, buffer);
+    if (!((CompStatus & COMPETITION_CONNECTED) >> 1))
+        strcpy(buffer, "Competition: Connected");
+    else
+        strcpy(buffer, "Competition: Not Connected");
+    
+
+    lv_label_set_text(Init_Robot_Stat_Comp_Connected_Label, buffer);
     buffer[0] = '\0';
     snprintf(buffer, 32, "Controller Battery Level: %d", ContBatteryLevel);
     lv_label_set_text(Init_Robot_Stat_Cont_Battery_Cap_Label, buffer);
