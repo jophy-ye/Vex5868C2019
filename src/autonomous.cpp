@@ -11,7 +11,7 @@ extern AutonPos_t AutonPos;
 
 void TestFunction()
 {
-    robot.SlideDistance(10, 127, true);
+    // robot.TurnDegree(180, 127, true);
 }
 
 // Autonomous Action for starting position: Blue_Front
