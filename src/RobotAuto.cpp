@@ -256,7 +256,6 @@ void RobotAuto::TurnDegree(double degree, double power, bool OptimizedStop)
     RightFrontMotor.tare_position();
     RightBackMotor.tare_position();
 
-    char printbuffer[50];
     while (abs(LeftMotorMovedCM) < abs(turn_dist) && abs(RightMotorMovedCM) < abs(turn_dist))
     {
         // calculate the power for both sides with PID's P control
@@ -293,10 +292,6 @@ void RobotAuto::TurnDegree(double degree, double power, bool OptimizedStop)
         // Note: the encoder_unit has been set to "degree"
         LeftMotorMovedCM = (LeftFrontMotor.get_position() + LeftBackMotor.get_position()) / 720 * (ROBOT::WHEEL_DIAMETER * PI);
         RightMotorMovedCM = (RightFrontMotor.get_position() + RightBackMotor.get_position()) / 720 * (ROBOT::WHEEL_DIAMETER * PI);
-
-        printbuffer[0] = '\0';
-        snprintf(printbuffer, 50, "%f\t%f\t%f\n", turn_dist, LeftMotorMovedCM, RightMotorMovedCM);
-        Debug::print(printbuffer);
     }
     // let the whole robot stop after finishing the move
     Stop();
