@@ -54,10 +54,20 @@ void opcontrol()
 		else
 		{
 			// basis basic movement (forward/backward)
-			robot.LeftFrontMotor = LeftJoyVec.get_y() * JOYSTICK_VAL::CONTROL_P_VAL;
-			robot.LeftBackMotor = LeftJoyVec.get_y() * JOYSTICK_VAL::CONTROL_P_VAL;
-			robot.RightFrontMotor = RightJoyVec.get_y() * JOYSTICK_VAL::CONTROL_P_VAL;
-			robot.RightBackMotor = RightJoyVec.get_y() * JOYSTICK_VAL::CONTROL_P_VAL;
+			if (LeftJoyVec.magnitude() < 15 && RightJoyVec.magnitude() < 15)
+			{
+				robot.LeftFrontMotor = 0;
+				robot.LeftBackMotor = 0;
+				robot.RightFrontMotor = 0;
+				robot.RightBackMotor = 0;	
+			}
+			else
+			{
+				robot.LeftFrontMotor = LeftJoyVec.get_y() * JOYSTICK_VAL::CONTROL_P_VAL;
+				robot.LeftBackMotor = LeftJoyVec.get_y() * JOYSTICK_VAL::CONTROL_P_VAL;
+				robot.RightFrontMotor = RightJoyVec.get_y() * JOYSTICK_VAL::CONTROL_P_VAL;
+				robot.RightBackMotor = RightJoyVec.get_y() * JOYSTICK_VAL::CONTROL_P_VAL;	
+			}
 		}
 
 		

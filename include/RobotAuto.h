@@ -39,7 +39,14 @@ public:
     * */
     RobotAuto(): Robot(), LeftMotorMovedCM(0), RightMotorMovedCM(0), 
             LifterPos(0), IntakeLifterTargetPos(0), LifterTargetPos(0)
-    { LifterMotor.tare_position(); IntakeLifterMotor.tare_position();};
+    {
+        LifterMotor.tare_position(); IntakeLifterMotor.tare_position();
+
+        LeftFrontMotor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+        LeftBackMotor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+        RightFrontMotor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+        RightBackMotor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    }
 
     /*
     * Function for the whole robot to stop

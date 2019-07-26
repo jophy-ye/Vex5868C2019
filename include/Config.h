@@ -82,7 +82,7 @@ namespace CONSTANTS
         const float LIFTER_KP                       = 0.5;
 
         // Thresold value of LifterMotor's encoder (high position)
-        const float LIFTER_HIGH_DEGREE              = 2400;
+        const float LIFTER_HIGH_DEGREE              = 2200;
         // Thresold value of LifterMotor's encoder (low position)
         const float LIFTER_LOW_DEGREE               = 0;
 
