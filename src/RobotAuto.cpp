@@ -46,7 +46,7 @@ void MotorLockingTaskControllerFunc(void* param)
         Debug::WarnLog("In \"MotorLockingTask\", (RobotAuto*) is not pointing to anything.");
         return;
     }
-char printbuffer[30];
+
     while (true)
     {
         if (robot_ins -> MotorLocked)

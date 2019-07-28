@@ -30,7 +30,7 @@ lv_obj_t* Init_Page;        // the tabview widget used to store all initialize o
 lv_obj_t* Init_Robot_Stat_Tab;    // the tab (belongs to Init_Page) to show the robot status
 lv_obj_t* Init_Robot_Stat_Battery_Volt_Label;   // the battery voltage (vex brain) label
 lv_obj_t* Init_Robot_Stat_Comp_Connected_Label;  // the competition status label
-lv_obj_t* Init_Robot_Stat_Cont_Battery_Cap_Label;   // the battery capacity (controller) label
+lv_obj_t* Init_Robot_Stat_Cont_Battery_Volt_Label;   // the battery capacity (controller) label
 lv_obj_t* Init_Robot_Stat_Ref_Btn;  // the button for user to reload the data
 
 lv_obj_t* Init_Action_Selector;     // the tab (belongs to Init_Page) to show the action selector, like autonomous.
@@ -102,12 +102,12 @@ void InitSetup()
     // set up some robot status data on screen
     Init_Robot_Stat_Battery_Volt_Label = lv_label_create(Init_Robot_Stat_Tab, NULL);
     Init_Robot_Stat_Comp_Connected_Label = lv_label_create(Init_Robot_Stat_Tab, NULL);
-    Init_Robot_Stat_Cont_Battery_Cap_Label = lv_label_create(Init_Robot_Stat_Tab, NULL);
+    Init_Robot_Stat_Cont_Battery_Volt_Label = lv_label_create(Init_Robot_Stat_Tab, NULL);
     lv_obj_align(Init_Robot_Stat_Battery_Volt_Label, Init_Robot_Stat_Tab, 
                 LV_ALIGN_IN_RIGHT_MID, -290, 130);
     lv_obj_align(Init_Robot_Stat_Comp_Connected_Label, Init_Robot_Stat_Battery_Volt_Label,
                 LV_ALIGN_OUT_BOTTOM_RIGHT, 0, 0);
-    lv_obj_align(Init_Robot_Stat_Cont_Battery_Cap_Label, Init_Robot_Stat_Comp_Connected_Label,
+    lv_obj_align(Init_Robot_Stat_Cont_Battery_Volt_Label, Init_Robot_Stat_Comp_Connected_Label,
                 LV_ALIGN_OUT_BOTTOM_RIGHT, 0, 0);
     Init_Robot_Stat_Ref_Btn = lv_btn_create(Init_Robot_Stat_Tab, NULL);
     lv_obj_align(Init_Robot_Stat_Ref_Btn, NULL, LV_ALIGN_IN_BOTTOM_RIGHT, 0, 70);
@@ -192,7 +192,7 @@ static lv_res_t ChangePosBtnPressed_Action(lv_obj_t* PressedButton)
 static lv_res_t LoadStatus_Action(lv_obj_t* RefreshButton)
 {
     // retrieve all data as reported by the vexos
-    double BatteryVoltage = pros::battery::get_voltage();
+    double BatteryVoltage = (double)pros::battery::get_voltage() / 1000;
     std::uint8_t CompStatus = pros::competition::get_status();
     std::int32_t ContBatteryLevel = pros::c::controller_get_battery_level(pros::E_CONTROLLER_MASTER);
 
@@ -211,7 +211,7 @@ static lv_res_t LoadStatus_Action(lv_obj_t* RefreshButton)
     lv_label_set_text(Init_Robot_Stat_Comp_Connected_Label, buffer);
     buffer[0] = '\0';
     snprintf(buffer, 32, "Controller Battery Level: %d", ContBatteryLevel);
-    lv_label_set_text(Init_Robot_Stat_Cont_Battery_Cap_Label, buffer);
+    lv_label_set_text(Init_Robot_Stat_Cont_Battery_Volt_Label, buffer);
     
 
     return LV_RES_OK;

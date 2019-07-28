@@ -42,7 +42,7 @@ namespace CONSTANTS
     {
         // all not set +++++++++++++++++++++++
         // all values for PID control
-        const float KP = 3;
+        const float KP = 4;
 
         /*
         if OptimizedStop is enabled,
@@ -81,10 +81,10 @@ namespace CONSTANTS
         const bool LIFTER_REVERSED                  = true;
 
         const int LIFTER_POWER_MAX                  = 54;
-        const float LIFTER_KP                       = 0.5;
+        const float LIFTER_KP                       = 0.7;
 
         // Thresold value of LifterMotor's encoder (high position)
-        const float LIFTER_HIGH_DEGREE              = 2200;
+        const float LIFTER_HIGH_DEGREE              = 3200;
         // Thresold value of LifterMotor's encoder (low position)
         const float LIFTER_LOW_DEGREE               = 0;
 
@@ -103,7 +103,7 @@ namespace CONSTANTS
         const bool INTAKE_2_REVERSED                = false;
         const bool INTAKE_LIFTER_REVERSED           = true;
 
-        const float INTAKE_LIFTER_KP                = 0.6;
+        const float INTAKE_LIFTER_KP                = 0.7;
         // Thresold value of IntakeLifterMotor's encoder (high position)
         const float INTAKE_LIFTER_HIGH_DEGREE       = 2400;
         // Thresold value of IntakeLifterMotor's encoder (low position)
