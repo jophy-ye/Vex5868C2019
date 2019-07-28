@@ -34,6 +34,8 @@ namespace CONSTANTS
         TURN_RADIUS = sqrt(robot_width^2 + distance_between_wheel^2) / 2
         */
         const double TURN_RADIUS            = 33.4;
+
+        const double MOTOR_LOCK_CONTROL_KP  = 2;
     }
 
     namespace AUTO_MOVEMENT

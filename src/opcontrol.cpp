@@ -31,11 +31,13 @@ void opcontrol()
 	extern GameStatus_t GameStatus;
 	GameStatus = DriverControl;
 	vector2d LeftJoyVec, RightJoyVec;	// Vector to store left and right joystick number
+	bool CURRENT_SLIDE	= false;	// asign to true if current mode is "slide movement", asign to false if it is "normal movement"
 	Debug::StatLog("$ OpControl Starting");
 
 	joystick.rumble("-"); // warn the user, game is starting
 	
 	// start the loop
+	char print_buffer[30];
 	while (true)
 	{
 		LeftJoyVec.set_x(joystick.get_analog(ANALOG_LEFT_X));
@@ -48,26 +50,32 @@ void opcontrol()
 		if (std::abs(LeftJoyVec.gradient()) < JOYSTICK_VAL::HORIZONTAL_SLIDE_THRESOLD && 
 				RightJoyVec.magnitude() < 10)
 		{
+			robot.MotorReleaseLock();
 			// horizontal sliding movement ( abs(left_joystick_gradient)) < thresold )
+			if (CURRENT_SLIDE == false)
+				robot.MotorReset();
+
 			robot.Slide(LeftJoyVec.get_x() * JOYSTICK_VAL::CONTROL_P_VAL);
+
+			CURRENT_SLIDE = true;
 		}
 		else
 		{
-			// basis basic movement (forward/backward)
+			// normal basic movement (forward/backward)
 			if (LeftJoyVec.magnitude() < 15 && RightJoyVec.magnitude() < 15)
 			{
-				robot.LeftFrontMotor = 0;
-				robot.LeftBackMotor = 0;
-				robot.RightFrontMotor = 0;
-				robot.RightBackMotor = 0;	
+				robot.MotorStartLock();
 			}
 			else
 			{
+				robot.MotorReleaseLock();
 				robot.LeftFrontMotor = LeftJoyVec.get_y() * JOYSTICK_VAL::CONTROL_P_VAL;
 				robot.LeftBackMotor = LeftJoyVec.get_y() * JOYSTICK_VAL::CONTROL_P_VAL;
 				robot.RightFrontMotor = RightJoyVec.get_y() * JOYSTICK_VAL::CONTROL_P_VAL;
 				robot.RightBackMotor = RightJoyVec.get_y() * JOYSTICK_VAL::CONTROL_P_VAL;	
 			}
+
+			CURRENT_SLIDE = false;
 		}
 
 		

@@ -22,6 +22,15 @@ using namespace CONSTANTS;
  */
 void LiftersTaskControllerFunc(void* param);
 
+/**
+ * A public function for the task that holds motor-locking in position
+ * It is in the task called: MotorLockingTask (declared in initialize.cpp)
+ * 
+ * param is the parameter passed when the task is created.
+ * In this case, param store a pointer to the instance of RobotAuto (robot)
+ */
+void MotorLockingTaskControllerFunc(void* param);
+
 
 class RobotAuto : public Robot
 {
@@ -31,6 +40,9 @@ private:
     short LifterPos;
 
 public:
+    bool MotorLocked;   // motor locking status, refer to MotorStartLock() and MotorReleaseLock()
+    pros::Mutex MotorLockingMutex;
+    
     /*
     * The constructor function of the class "RobotMovement"
 
@@ -38,7 +50,8 @@ public:
     * Output: (none)
     * */
     RobotAuto(): Robot(), LeftMotorMovedCM(0), RightMotorMovedCM(0), 
-            LifterPos(0), IntakeLifterTargetPos(0), LifterTargetPos(0)
+            LifterPos(0), IntakeLifterTargetPos(0), LifterTargetPos(0), 
+            MotorLocked(false), MotorLockingMutex()
     {
         LifterMotor.tare_position(); IntakeLifterMotor.tare_position();
 
@@ -47,6 +60,15 @@ public:
         RightFrontMotor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
         RightBackMotor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     }
+
+    /*
+    * Function to map the power reference to [-127, 127] if it exceeded
+
+    * Input:
+    *     power_ref (double)    :  The power variable reference
+    * Output: (none)
+    * */
+    void MapPower(double& power_ref);
 
     /*
     * Function for the whole robot to stop
@@ -58,11 +80,30 @@ public:
 
     /*
     * Function to reset the motor's absolute position
-
+    * 
     * Input: (none)
     * Output: (none)
     * */
     void MotorReset();
+
+    /*
+    * Function to start locking the motor.
+    * It is not setting the motor power to 0, but strictly locking it.
+    * After this function is called, the motor will strictly be locked until MotorReleaseLock() is called.
+    * 
+    * Input: (none)
+    * Output: (none)
+    * */
+    void MotorStartLock();
+
+    /*
+    * Function to stop locking the motor.
+    * Refer to MotorStartLock()
+    * 
+    * Input: (none)
+    * Output: (none)
+    * */
+    void MotorReleaseLock();
 
     /*
     * Function for the whole robot to start moving

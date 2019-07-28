@@ -30,6 +30,54 @@ void LiftersTaskControllerFunc(void* param)
     }
 }
 
+/**
+ * param is the parameter passed when the task is created.
+ * In this case, param store a pointer to the instance of RobotAuto (robot)
+ *  */
+void MotorLockingTaskControllerFunc(void* param)
+{
+    RobotAuto* robot_ins = (RobotAuto*)param;
+
+    double LeftFrontPower, RightFrontPower, LeftBackPower, RightBackPower;
+
+    if (param == NULL)
+    {
+        // param is not pointing to anything, raise an error
+        Debug::WarnLog("In \"MotorLockingTask\", (RobotAuto*) is not pointing to anything.");
+        return;
+    }
+char printbuffer[30];
+    while (true)
+    {
+        if (robot_ins -> MotorLocked)
+        {
+            LeftFrontPower = - ((robot_ins -> LeftFrontMotor.get_position()) * ROBOT::MOTOR_LOCK_CONTROL_KP);
+            LeftBackPower = - ((robot_ins -> LeftBackMotor.get_position()) * ROBOT::MOTOR_LOCK_CONTROL_KP);
+            RightFrontPower = - ((robot_ins -> RightFrontMotor.get_position()) * ROBOT::MOTOR_LOCK_CONTROL_KP);
+            RightBackPower = - ((robot_ins -> RightBackMotor.get_position()) * ROBOT::MOTOR_LOCK_CONTROL_KP);
+
+            robot_ins -> MapPower(LeftFrontPower);
+            robot_ins -> MapPower(LeftBackPower);
+            robot_ins -> MapPower(RightFrontPower);
+            robot_ins -> MapPower(RightBackPower);
+
+            robot_ins -> LeftFrontMotor = LeftFrontPower;
+            robot_ins -> LeftBackMotor = LeftBackPower;
+            robot_ins -> RightFrontMotor = RightFrontPower;
+            robot_ins -> RightBackMotor = RightBackPower;
+        }
+
+        pros::delay(60);
+    }
+}
+
+void RobotAuto::MapPower(double& power_ref)
+{
+    if (power_ref > 127)
+        power_ref = 127;
+    if (power_ref < -127)
+        power_ref = -127;
+}
 
 void RobotAuto::Stop()
 {
@@ -39,6 +87,22 @@ void RobotAuto::Stop()
     RightBackMotor = 0;
 
     MotorReset();
+}
+
+void RobotAuto::MotorStartLock()
+{
+    if (MotorLockingMutex.take(0))
+    {
+        MotorLocked = true;
+        Stop();
+        MotorReset();
+    }
+}
+
+void RobotAuto::MotorReleaseLock()
+{
+    MotorLockingMutex.give();
+    MotorLocked = false;
 }
 
 void RobotAuto::MotorReset()
@@ -139,8 +203,8 @@ void RobotAuto::Slide(double power)
     double LeftPower, RightPower;
 
     // calculate the power for both sides with PID's P controlAUTO_MOVEMENT
-    LeftPower = power;
-    RightPower = - power;
+    LeftPower = power - (RightMotorMovedCM + LeftMotorMovedCM) * AUTO_MOVEMENT::KP;
+    RightPower = - power - (RightMotorMovedCM + LeftMotorMovedCM) * AUTO_MOVEMENT::KP;
 
     // modify the power if it exceeded
     if (LeftPower > 127)    LeftPower = 127;
@@ -156,7 +220,7 @@ void RobotAuto::Slide(double power)
 
     // change the value of LeftMotorMovedCM and RightMotorMovedCM
     // Note: the encoder_unit has been set to "degree"
-    LeftMotorMovedCM = (LeftBackMotor.get_position() - LeftFrontMotor.get_position()) / 720 * (ROBOT::WHEEL_DIAMETER * PI);
+    LeftMotorMovedCM = (LeftFrontMotor.get_position() - LeftBackMotor.get_position()) / 720 * (ROBOT::WHEEL_DIAMETER * PI);
     RightMotorMovedCM = (RightFrontMotor.get_position() - RightBackMotor.get_position()) / 720 * (ROBOT::WHEEL_DIAMETER * PI);
 }
 
@@ -321,6 +385,11 @@ void RobotAuto::UpdateIntakeLifterPos()
 
 void RobotAuto::UpdateLifterPos()
 {
+    if (LifterTargetPos > LIFTER::LIFTER_HIGH_DEGREE)
+        LifterTargetPos = LIFTER::LIFTER_HIGH_DEGREE;
+    if (LifterTargetPos < LIFTER::LIFTER_LOW_DEGREE)
+        LifterTargetPos = LIFTER::LIFTER_LOW_DEGREE;
+
     if (LifterMotor.get_position() < LIFTER::AVOID_INTAKELIFTER_MIN_DEGREE && 
         IntakeLifterTargetPos > 20)
     {

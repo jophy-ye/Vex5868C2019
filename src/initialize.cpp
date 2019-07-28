@@ -20,7 +20,8 @@ void initialize()
     GameStatus = Initialize;
 
     pros::Task LiftersTask = pros::Task(LiftersTaskControllerFunc, (void*)(&robot), 10, TASK_STACK_DEPTH_DEFAULT, "IntakeLifter Task");
-    pros::Task ScreenHandlerTask = pros::Task(GuiHandler, NULL, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "GUI Task");
+    pros::Task MotorLockingTask = pros::Task(MotorLockingTaskControllerFunc, (void*)(&robot), 13, TASK_STACK_DEPTH_DEFAULT, "MotorLocking Task");
+    pros::Task ScreenHandlerTask = pros::Task(GuiHandler, NULL, TASK_PRIORITY_MIN + 1, TASK_STACK_DEPTH_DEFAULT, "GUI Task");
 }
 
 /**
